@@ -1,4 +1,4 @@
-const wtf = require('./src/index');
+const wtf = require('./src/index')
 // const wtf = require('./builds/wtf_wikipedia.min');
 // const readFile = require('./tests/lib/_cachedPage');
 // const wtf = require('./builds/wtf_wikipedia');
@@ -17,12 +17,26 @@ const wtf = require('./src/index');
 //   console.log(doc.sections('Сюжет').sentences().map((s) => s.text()));
 // });
 
-
-let str = `== १९०६ के ज़ुलु युद्ध में भूमिका ==
-१९०६ में, [[ज़ुलु]] ([[:en:Zulu|Zulu]]) [[दक्षिण अफ्रीका]] में नए चुनाव कर के लागू करने के बाद दो [[अंग्रेज]] अधिकारियों को मार डाला गया। बदले में अंग्रेजों ने जूलू के खिलाफ युद्ध छेड़ दिया। गांधी जी ने भारतीयों को भर्ती करने के लिए ब्रिटिश अधिकारियों को सक्रिय रूप से प्रेरित किया। उनका तर्क था अपनी नागरिकता के दावों को कानूनी जामा पहनाने के लिए भारतीयों को युद्ध प्रयासों में सहयोग देना चाहिए। तथापि, अंग्रेजों ने अपनी सेना में भारतीयों को पद देने से इंकार कर दिया था। इसके बावजूद उन्होने गांधी जी के इस प्रस्ताव को मान लिया कि भारतीय घायल अंग्रेज सैनिकों को उपचार के लिए स्टेचर पर लाने के लिए स्वैच्छा पूर्वक कार्य कर सकते हैं। इस कोर की बागडोर गांधी ने थामी।२१ जुलाई (July 21), [[1906|१९०६]] को गांधी जी ने ''भारतीय जनमत इंडियन ओपिनिय ([[:en:Indian Opinion|Indian Opinion]])'' में लिखा कि ''२३ भारतीय<ref>गांधी नामक दस्तावेज से अवतरित महात्मा गांधी की संग्रहित कृतियां वॉल्यूम ५ दस्तावेज # दैवत्य के मुखैटे के पीछे पेज १०६</ref> निवासियों के विरूद्ध चलाए गए आप्रेशन के संबंध में प्रयोग द्वारा नेटाल सरकार के कहने पर एक कोर का गठन किया गया है।''दक्षिण अफ्रीका में भारतीय लोगों से ''इंडियन ओपिनियन'' में अपने कॉलमों के माध्‍यम से इस युद्ध में शामिल होने के लिए आग्रह किया और कहा, ''यदि सरकार केवल यही महसूस करती हे कि आरक्षित बल बेकार हो रहे हैं तब वे इसका उपयोग करेंगे और असली लड़ाई के लिए भारतीयों का प्रशिक्षण देकर इसका अवसर देंगे।''<ref name=GandhismDotNet>http://www.gandhism.net/sergeantmajorgandhi.phpसार्जेंट मेजर गांधी</ref>
+let str = `
 
 
-[[श्रेणी:भारत के अर्थशास्त्री]]
-[[श्रेणी:महात्मा गांधी| ]]
-`;
-console.log(wtf(str).categories());
+{{Infobox country
+| conventional_long_name = Kingdom of Spain
+| native_name = {{native name|es|Reino de España}}
+| common_name = Spain
+| name = {{collapsible list
+|titlestyle                  = background:transparent;line-height:normal;font-size:84%;
+* {{lang-oc|Reiaume d'Espanha}}, {{IPA-oc|reˈjawme ðesˈpaɲɔ|IPA}}}}}}
+|{{Infobox |subbox=yes |bodystyle=font-size:80%;font-weight:normal;
+|rowclass1 =mergedrow |label1=[[Catalan language|Catalan]]: |data1={{lang|ca|Regne d'Espanya}}
+|rowclass2 = mergedrow |label2=[[Basque language|Basque]]: |data2={{lang|eu|Espainiako Erresuma}}
+|rowclass3 = mergedrow |label3=[[Galician language|Galician]]: |data3={{lang|gl|Reino de España}}
+|rowclass4 = mergedrow |label4=[[Occitan language|Occitan]]: |data4={{lang|oc|Reiaume d'Espanha}}
+}}
+}}
+| national_motto = woohoo
+}}
+
+this actual text
+`
+console.log(wtf(str).text())
