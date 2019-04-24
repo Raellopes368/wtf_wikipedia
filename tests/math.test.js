@@ -1,11 +1,10 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('math-simple', t => {
-  var str = `hello {{math|big=1|1 + 2 {{=}} 3}} world`;
-  var doc = wtf(str);
-  var tmpl = doc.templates(0) || {};
+  let str = `hello {{math|big=1|1 + 2 {{=}} 3}} world`;
+  let doc = wtf(str);
+  let tmpl = doc.templates(0) || {};
   t.equal(tmpl.formula, '1 + 2 = 3', 'tmpl formula');
   t.equal(doc.text(), 'hello\n\n1 + 2 = 3\n\nworld', 'text output');
 
@@ -30,14 +29,14 @@ test('math-simple', t => {
 });
 
 test('math-weirder', t => {
-  var str = `<math>
+  let str = `<math>
   f(x) =
   egin{cases}
   1 & -1 le x < 0rac{1}{2} & x = 0 1 - x^2 & 	ext{otherwise}
   end{cases}
   </math>`;
-  var doc = wtf(str);
-  var tmpl = doc.templates(0) || {};
+  let doc = wtf(str);
+  let tmpl = doc.templates(0) || {};
   t.ok(tmpl.formula.length > 10, 'tmpl formula');
   t.equal(doc.text(), '', 'no text output');
   t.end();

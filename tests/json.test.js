@@ -1,9 +1,8 @@
-'use strict';
-var test = require('tape');
-var readFile = require('./lib/_cachedPage');
+const test = require('tape');
+const readFile = require('./lib/_cachedPage');
 
 test('json-output-default', t => {
-  var data = readFile('royal_cinema').json();
+  let data = readFile('royal_cinema').json();
   t.ok(data.title, 'title');
   t.ok(data.categories, 'categories');
   t.ok(data.sections, 'sections');
@@ -14,7 +13,7 @@ test('json-output-default', t => {
 });
 
 test('json-output-options', t => {
-  var options = {
+  let options = {
     title: false,
     pageID: false,
     categories: false,
@@ -26,9 +25,9 @@ test('json-output-options', t => {
 
     plaintext: true,
     html: true,
-    markdown: true,
+    markdown: true
   };
-  var data = readFile('royal_cinema').json(options);
+  let data = readFile('royal_cinema').json(options);
   t.ok(!data.title, 'title');
   t.ok(!data.categories, 'categories');
   t.ok(!data.citations, 'citations');
@@ -43,8 +42,8 @@ test('json-output-options', t => {
 });
 
 test('section-output', t => {
-  var doc = readFile('royal_cinema');
-  var data = doc.section(0).json({
+  let doc = readFile('royal_cinema');
+  let data = doc.section(0).json({
     links: false,
     formatting: false,
     sentences: true
@@ -57,9 +56,9 @@ test('section-output', t => {
 });
 
 test('sentence-output', t => {
-  var doc = readFile('royal_cinema');
-  var sen = doc.sentences(0);
-  var data = sen.json();
+  let doc = readFile('royal_cinema');
+  let sen = doc.sentences(0);
+  let data = sen.json();
   t.ok(data.text, 'text');
   t.ok(data.links, 'links');
   t.ok(data.formatting, 'formatting');

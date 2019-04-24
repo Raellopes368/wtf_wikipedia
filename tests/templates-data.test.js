@@ -1,12 +1,14 @@
-'use strict';
-var wtf = require('./lib');
-var test = require('tape');
+const wtf = require('./lib');
+const test = require('tape');
 
 test('external-links', function(t) {
-  var arr = [
+  let arr = [
     [`imdb title`, `{{IMDb title | id= 0426883 | title= Alpha Dog }}`],
     [`imdb name`, `{{IMDb name | 0000008 | Marlon Brando }}`],
-    [`musicbrainz artist`, `{{MusicBrainz artist|mbid=31e7b30b-f960-408f-908b-c8e277308eab|name=Susumu Hirasawa}}`],
+    [
+      `musicbrainz artist`,
+      `{{MusicBrainz artist|mbid=31e7b30b-f960-408f-908b-c8e277308eab|name=Susumu Hirasawa}}`
+    ],
     [`youtube`, `{{YouTube|id=9bZkp7q19f0|title="Gangnam Style"}}`],
     [`twitter`, `{{Twitter | id= AcadiaU | name= Acadia University }}`],
     [`tumblr`, `{{Tumblr|nasa|NASA (official)}}`],
@@ -18,29 +20,37 @@ test('external-links', function(t) {
     ['allgame', `{{AllGame |326 |The Legend of Zelda: A Link to the Past}}`],
     [`taxon info`, `{{Taxon info|Corallinaceae/stem-group|link_target}}`],
     [`book bar`, `{{Book bar|Lemurs|Mesozoic mammals of Madagascar|Subfossil lemurs}}`],
-    ['see also', `{{See also|page1|page2|page3| ...
+    [
+      'see also',
+      `{{See also|page1|page2|page3| ...
     |label 1 = label 1|label 2 = label2|label 3 = label3| ...
-    |l1 = label1|l2 = label2|l3 = label3|selfref = yes|category = no}}`],
+    |l1 = label1|l2 = label2|l3 = label3|selfref = yes|category = no}}`
+    ],
     ['unreferenced section', `{{Unreferenced section|date=November 2018}}`]
   ];
-  arr.forEach((a) => {
-    var doc = wtf(a[1]);
+  arr.forEach(a => {
+    let doc = wtf(a[1]);
     t.equal(doc.templates().length, 1, a[0] + ' count');
-    var tmpl = doc.templates(0) || {};
+    let tmpl = doc.templates(0) || {};
     t.equal(tmpl.template, a[0], a[1] + ' name');
   });
   t.end();
 });
 
 test('wikipedia-templates', function(t) {
-  var arr = [
+  let arr = [
     [`uss`, `{{USS|Constellation|1797}}`],
     [`italic title`, `{{italic title}}`],
     [`audio`, `{{Audio|en-us-Alabama.ogg|pronunciation of "Alabama"|help=no}}`],
     [`unreferenced`, `{{Unreferenced|date=November 2018}}`],
     [`chem`, `{{chem|H|2|O}}`],
-    [`subject bar`, `{{Subject bar |book= Lemurs |portal1= Primates |portal2= Madagascar |commons= y |commons-search= Category:Lemuriformes |species= y |species-search= Lemuriformes }}`],
-    [`gallery`, `{{Gallery
+    [
+      `subject bar`,
+      `{{Subject bar |book= Lemurs |portal1= Primates |portal2= Madagascar |commons= y |commons-search= Category:Lemuriformes |species= y |species-search= Lemuriformes }}`
+    ],
+    [
+      `gallery`,
+      `{{Gallery
 |title=Cultural depictions of George Washington
 |width=160 | height=170
 |align=center
@@ -51,8 +61,11 @@ test('wikipedia-templates', function(t) {
 |File:Mount Rushmore2.jpg
  |alt2=Profile of stone face on mountainside, with 3 workers.
  |Construction of Washington portrait at [[Mount Rushmore]], c. 1932
-}}`],
-    [`climate chart`, `{{climate chart
+}}`
+    ],
+    [
+      `climate chart`,
+      `{{climate chart
 | [[Amsterdam]]
 |0.5|5.4|62.1
 |0.2|6.0|43.4
@@ -69,21 +82,33 @@ test('wikipedia-templates', function(t) {
 |float=right
 |clear=right
 }}
-`],
+`
+    ],
 
-    [`short description`, `{{Short description|Use of high concentrations of oxygen as medical treatment}}`],
+    [
+      `short description`,
+      `{{Short description|Use of high concentrations of oxygen as medical treatment}}`
+    ],
     [`main`, `{{Main|Article1|l1=Custom label 1|Article2|l2=Custom label 2}}`],
-    [`wide image`, `{{wide image|Helsinki z00.jpg|1800px||alt=Panorama of city with mixture of five to ten story buildings}}`],
+    [
+      `wide image`,
+      `{{wide image|Helsinki z00.jpg|1800px||alt=Panorama of city with mixture of five to ten story buildings}}`
+    ],
     [`ipa`, `{{IPA|/[[character|ˈkærəktɚz]]/}}`],
     [`ipac`, `{{IPAc-ko|h|a|n|g|u|k}}`],
     [`coord`, `{{Coord|44.112|N|87.913|W|display=title}}`],
     [`gnis`, `{{GNIS | 871352 | Mount Washington }}`],
-    ['sky', `{{Sky
+    [
+      'sky',
+      `{{Sky
     |00|42|44.30
     |+|41|16|10
     |2360000
-  }}`],
-    [`portal`, `{{Portal
+  }}`
+    ],
+    [
+      `portal`,
+      `{{Portal
      | Portal 1
      | Portal 2
      | Portal 3
@@ -91,18 +116,18 @@ test('wikipedia-templates', function(t) {
      | margin = fun
      | break = no
      | boxsize = yes
-    }}`],
-  // [``, ``],
+    }}`
+    ]
+    // [``, ``],
   ];
-  arr.forEach((a) => {
-    var doc = wtf(a[1]);
+  arr.forEach(a => {
+    let doc = wtf(a[1]);
     t.equal(doc.templates().length, 1, a[0] + ' count');
-    var tmpl = doc.templates(0) || {};
+    let tmpl = doc.templates(0) || {};
     t.equal(tmpl.template, a[0], a[0] + ' name');
   });
   t.end();
 });
-
 
 test('weather', function(t) {
   let str = `
@@ -125,7 +150,7 @@ test('weather', function(t) {
   |Dec high C = -0.8
   |source 1=[[Environment Canada]]<ref name="envcan"/>
   }}`;
-  var arr = wtf(str).templates(0).byMonth['high c'];
+  let arr = wtf(str).templates(0).byMonth['high c'];
   t.equal(arr.length, 12, 'got twelve months');
   t.equal(arr[1], 0.7, 'got february');
 
@@ -141,7 +166,7 @@ test('weather', function(t) {
 });
 
 test('election', function(t) {
-  var str = `hello {{Election box begin |title=[[United Kingdom general election, 2005|General Election 2005]]: Strangford}}
+  let str = `hello {{Election box begin |title=[[United Kingdom general election, 2005|General Election 2005]]: Strangford}}
    {{Election box candidate
      |party      = Labour
      |candidate  = Tony Blair
@@ -163,17 +188,17 @@ test('election', function(t) {
   }}
    {{Election box end}}
    world`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.templates().length, 1, 'found one template');
-  var tmpl = doc.templates(0) || {};
+  let tmpl = doc.templates(0) || {};
   t.equal(tmpl.template, 'election box', 'template name');
   t.equal(tmpl.candidates.length, 2, 'two candidates');
   t.end();
 });
 
 test('test-flexible-format', function(t) {
-  var doc = wtf(`hello {{Hollywood Walk of Fame|Alan Alda}} world`);
-  var tmpl = doc.templates(0) || {};
+  let doc = wtf(`hello {{Hollywood Walk of Fame|Alan Alda}} world`);
+  let tmpl = doc.templates(0) || {};
   t.equal(tmpl.template, 'hollywood walk of fame', 'template1');
   t.equal(tmpl.name, 'Alan Alda', 'name1');
   t.equal(doc.text(), 'hello world', 'text1');
@@ -190,7 +215,7 @@ test('test-flexible-format', function(t) {
 });
 
 test('playoff-brackets', function(t) {
-  var str = `{{4TeamBracket
+  let str = `{{4TeamBracket
   | RD2         = Final
 
   | seed-width  =

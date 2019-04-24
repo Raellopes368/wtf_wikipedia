@@ -1,41 +1,45 @@
-'use strict';
-var wtf = require('./lib');
-var test = require('tape');
+const wtf = require('./lib');
+const test = require('tape');
 
 test('remove wikitext from caption titles', function(t) {
-  var str = `
+  let str = `
 hello
 == {{anchor|Foo}} Foo [[Bar]] ==
 this is working
 i believe that 5===true and y===false
   `;
-  var sections = wtf(str).sections().map(s => s.json());
+  let sections = wtf(str)
+    .sections()
+    .map(s => s.json());
   t.equal(sections.length, 2, 'two-sections');
   t.equal(sections[0].title, '', 'implicit-section');
   t.equal(sections[1].title, 'Foo Bar', 'clean-section');
   t.end();
 });
 
-
 test('catch indented first sentence', function(t) {
-  var str = `:hello one
+  let str = `:hello one
 ok now you start`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.text(), 'ok now you start');
   t.end();
 });
 
 test('empty intro text', function(t) {
-  var str = `==English==
+  let str = `==English==
   how bout that
   `;
-  var sections = wtf(str).sections().map(s => s.title());
+  let sections = wtf(str)
+    .sections()
+    .map(s => s.title());
   t.deepEqual(sections, ['English'], 'leading-section');
 
   str = `
 ==English==
 how bout that`;
-  sections = wtf(str).sections().map(s => s.title());
+  sections = wtf(str)
+    .sections()
+    .map(s => s.title());
   t.deepEqual(sections, ['English'], 'newline-section');
 
   str = `
@@ -44,7 +48,9 @@ how bout that
 
 
 `;
-  sections = wtf(str).sections().map(s => s.title());
+  sections = wtf(str)
+    .sections()
+    .map(s => s.title());
   t.deepEqual(sections, ['English'], 'extra-whitespace');
   t.end();
 });

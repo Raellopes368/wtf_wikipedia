@@ -1,9 +1,8 @@
-'use strict';
-var test = require('tape');
-var readFile = require('./lib/_cachedPage');
+const test = require('tape');
+const readFile = require('./lib/_cachedPage');
 
 test('royal_cinema options', t => {
-  var doc = readFile('royal_cinema');
+  let doc = readFile('royal_cinema');
   t.equal(doc.images().length, 1, 'image-length');
   t.equal(doc.categories().length, 4, 'category-length');
   t.equal(doc.citations().length, 4, 'citations-length');
@@ -23,7 +22,7 @@ test('royal_cinema options', t => {
 });
 
 test('other-pages', t => {
-  var pages = [
+  let pages = [
     'earthquakes',
     'United-Kingdom',
     'Chemical-biology',
@@ -32,20 +31,18 @@ test('other-pages', t => {
     'Wendy-Mogel',
     'Damphu-drum',
     'Direct-representation',
-    'al_Haytham',
+    'al_Haytham'
   ];
-  pages.forEach((page) => {
-    var doc = readFile(page);
+  pages.forEach(page => {
+    let doc = readFile(page);
     t.notEqual(doc.categories().length, 0, page + '-category-length');
     t.notEqual(doc.citations().length, 0, page + '-citations-length');
   });
   t.end();
 });
 
-
-
 test('turn all options off', t => {
-  var options = {
+  let options = {
     sections: false,
     paragraphs: false,
     sentences: false,
@@ -55,17 +52,17 @@ test('turn all options off', t => {
     infoboxes: false,
     pageID: false
   };
-  var doc = readFile('United-Kingdom');
-  var out = JSON.stringify(doc.json(options));
+  let doc = readFile('United-Kingdom');
+  let out = JSON.stringify(doc.json(options));
   t.equal(out, '{}', 'json empty');
 
-  var html = doc.html(options);
+  let html = doc.html(options);
   t.ok(html.length < 100, 'html empty');
 
-  var md = doc.markdown(options);
+  let md = doc.markdown(options);
   t.equal(md, '', 'markdown empty');
 
-  var latex = doc.latex(options);
+  let latex = doc.latex(options);
   t.equal(latex, '', 'latex empty');
 
   t.end();

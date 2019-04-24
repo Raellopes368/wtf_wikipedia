@@ -1,4 +1,3 @@
-
 /*
 HTML: function is necessary for smart equal compare
 due to equivalence in exported output
@@ -6,7 +5,6 @@ remove unnecessary characters that makes the test smarter against
 syntactical layout change that still provide a correct output
 */
 function html_tidy(pSource) {
-
   // (1) Comments in Output
   pSource = pSource.replace(/<!--[^>]*-->/g, '');
 
@@ -85,6 +83,6 @@ function latex_tidy(pSource) {
 }
 
 module.exports = {
-  html : html_tidy,
-  latex : latex_tidy,
+  html: html_tidy,
+  latex: latex_tidy
 };

@@ -1,9 +1,8 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('document-links', t => {
-  var str = `before [[the shining|movie]]
+  let str = `before [[the shining|movie]]
 {|
 ! h1 !! h2 || h3
 |-
@@ -22,7 +21,7 @@ after now
 * [[three]]
 * four
 `;
-  var links = wtf(str).links();
+  let links = wtf(str).links();
   t.equal(links.length, 3, 'found-all-links');
   t.ok(links.find(l => l.text), 'movie', 'link-text');
   t.ok(links.find(l => l.page), 'Minnesota Twins', 'link-table');
@@ -31,21 +30,29 @@ after now
 });
 
 test('anchor-links', t => {
-  var str = `[[Doug Ford#Personal Life]]`;
-  var link = wtf(str).links(0);
+  let str = `[[Doug Ford#Personal Life]]`;
+  let link = wtf(str).links(0);
   t.equal(link.page, 'Doug Ford', 'page1');
   t.equal(link.text, undefined, 'text1');
   t.equal(link.anchor, 'Personal Life', 'anchor1');
 
   str = `[[Toronto_Blue_Jays#Problems|Tranno J birds]]`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   link = doc.links(0);
   t.equal(link.page, 'Toronto_Blue_Jays', 'page2');
   t.equal(link.text, 'Tranno J birds', 'text2');
   t.equal(link.anchor, 'Problems', 'anchor2');
 
-  t.equal(doc.sentences(0).html(), '<span class="sentence"><a class="link" href="./Toronto_Blue_Jays#Problems">Tranno J birds</a></span>', 'html-anchor');
-  t.equal(doc.sentences(0).markdown(), '[Tranno J birds](./Toronto_Blue_Jays#Problems)', 'markdown-anchor');
+  t.equal(
+    doc.sentences(0).html(),
+    '<span class="sentence"><a class="link" href="./Toronto_Blue_Jays#Problems">Tranno J birds</a></span>',
+    'html-anchor'
+  );
+  t.equal(
+    doc.sentences(0).markdown(),
+    '[Tranno J birds](./Toronto_Blue_Jays#Problems)',
+    'markdown-anchor'
+  );
 
   t.end();
 });

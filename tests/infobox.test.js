@@ -1,9 +1,8 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('infobox', function(t) {
-  var str = `
+  let str = `
   {{Infobox settlement
   | name = New York City
   | official_name                   = City of New York
@@ -14,7 +13,7 @@ test('infobox', function(t) {
 
   The '''City of New York''', often called '''New York City'''
   `;
-  var arr = wtf(str).infoboxes();
+  let arr = wtf(str).infoboxes();
   t.equal(arr.length, 1, 'have one infobox');
   t.end();
 });

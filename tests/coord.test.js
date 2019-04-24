@@ -1,10 +1,9 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('coord formats', t => {
-  var str = `{{Coord|44.112|-87.913|display=title}}`;
-  var obj = wtf(str).coordinates()[0];
+  let str = `{{Coord|44.112|-87.913|display=title}}`;
+  let obj = wtf(str).coordinates()[0];
   t.equal(obj.lat, 44.112, 'fmt-1-lat');
   t.equal(obj.lon, -87.913, 'fmt-1-lon');
 
@@ -64,9 +63,9 @@ test('coord formats', t => {
 
 //thank you to https://github.com/gmaclennan/parse-dms/blob/master/test/index.js
 test('Parse DMS', function(t) {
-  var str = `hi {{coord|59|12|7.7|N|02|15|39.6|W}} there`;
-  var obj = wtf(str).coordinates(0);
-  var want = {
+  let str = `hi {{coord|59|12|7.7|N|02|15|39.6|W}} there`;
+  let obj = wtf(str).coordinates(0);
+  let want = {
     lat: 59.20214,
     lon: -2.261
   };
@@ -75,9 +74,9 @@ test('Parse DMS', function(t) {
   t.end();
 });
 test('Parse DMS-missing', function(t) {
-  var str = `hi {{coord|59|N|02|W}} there`;
-  var obj = wtf(str).coordinates(0);
-  var want = {
+  let str = `hi {{coord|59|N|02|W}} there`;
+  let obj = wtf(str).coordinates(0);
+  let want = {
     lat: 59,
     lon: -2
   };

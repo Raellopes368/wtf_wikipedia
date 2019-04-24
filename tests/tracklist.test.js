@@ -1,9 +1,8 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('track-listing', t => {
-  var str = `
+  let str = `
 {{Track listing
 | headline        = Side one
 
@@ -34,15 +33,15 @@ test('track-listing', t => {
 | title8          = [[Happiness Is a Warm Gun]]
 | length8         = 2:43
 }}`;
-  var doc = wtf(str);
-  var track = doc.templates(0);
+  let doc = wtf(str);
+  let track = doc.templates(0);
   t.equal(track.headline, 'Side one', 'track-headline');
   t.equal(track.title4, 'Ob-La-Di, Ob-La-Da', 'title4');
   t.end();
 });
 
 test('track-listing', t => {
-  var str = `
+  let str = `
 {{Tracklist
 | collapsed       =
 | headline        = Track list
@@ -70,8 +69,8 @@ test('track-listing', t => {
 | extra6          = Simha, [[Geetha Madhuri]]
 | length6         = 4:41
 }}`;
-  var doc = wtf(str);
-  var track = doc.templates('tracklist')[0];
+  let doc = wtf(str);
+  let track = doc.templates('tracklist')[0];
   t.equal(track.total_length, '23:14', 'track-total_length');
   t.end();
 });

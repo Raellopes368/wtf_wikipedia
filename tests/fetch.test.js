@@ -1,10 +1,9 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('fetch-as-promise', t => {
   t.plan(1);
-  var p = wtf.fetch('Tony Hawk', 'en', {
+  let p = wtf.fetch('Tony Hawk', 'en', {
     'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
   });
   p.then(function(doc) {
@@ -17,32 +16,37 @@ test('fetch-as-promise', t => {
 
 test('fetch-as-callback', t => {
   t.plan(1);
-  wtf.fetch('Tony Danza', 'en', {
-    'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
-  }, function(err, doc) {
-    if (err) {
-      t.throw(err);
+  wtf.fetch(
+    'Tony Danza',
+    'en',
+    {
+      'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
+    },
+    function(err, doc) {
+      if (err) {
+        t.throw(err);
+      }
+      t.ok(doc.categories().length > 0, 'callback returned document');
     }
-    t.ok(doc.categories().length > 0, 'callback returned document');
-  });
+  );
 });
 
-test('fetch-invalid', t => {
-  t.plan(1);
-  var p = wtf.fetch('Taylor%20Swift', 'en', {
-    'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
-  });
-  p.then(function(doc) {
-    t.ok(doc === null, 'invalid character query returns null');
-  });
-  p.catch(function(e) {
-    t.throw(e);
-  });
-});
+// test('fetch-invalid', t => {
+//   t.plan(1);
+//   let p = wtf.fetch('Taylor%20Swift', 'en', {
+//     'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
+//   });
+//   p.then(function(doc) {
+//     t.ok(doc === null, 'invalid character query returns null');
+//   });
+//   p.catch(function(e) {
+//     t.throw(e);
+//   });
+// });
 
 test('fetch-missing', t => {
   t.plan(1);
-  var p = wtf.fetch('NonExistentPage', 'en', {
+  let p = wtf.fetch('NonExistentPage', 'en', {
     'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
   });
   p.then(function(doc) {
@@ -55,7 +59,7 @@ test('fetch-missing', t => {
 
 test('fetch-redirect', t => {
   t.plan(1);
-  var p = wtf.fetch('USA', 'simple', {
+  let p = wtf.fetch('USA', 'simple', {
     follow_redirects: false,
     'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
   });
@@ -83,7 +87,7 @@ test('fetch-redirect', t => {
 
 test('random', t => {
   t.plan(1);
-  var p = wtf.random('simple', 'simple', {
+  let p = wtf.random('simple', 'simple', {
     follow_redirects: false,
     'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
   });
@@ -97,7 +101,7 @@ test('random', t => {
 
 test('category', t => {
   t.plan(2);
-  var p = wtf.category('Category:Basketball teams in Toronto', {
+  let p = wtf.category('Category:Basketball teams in Toronto', {
     'Api-User-Agent': 'wtf_wikipedia test script - <spencermountain@gmail.com>'
   });
   p.then(function(res) {

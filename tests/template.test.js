@@ -1,18 +1,19 @@
-'use strict';
-var wtf = require('./lib');
-var test = require('tape');
+const wtf = require('./lib');
+const test = require('tape');
 
 test('glossary of professional wrestling', function(t) {
-  var glossary = `{{term|1=A-show}}
+  let glossary = `{{term|1=A-show}}
   {{defn|1= A wrestling event where a company's biggest draws wrestle.<ref name=torch/>}}`;
-  var o = wtf(glossary).sections()[0].sentences();
+  let o = wtf(glossary)
+    .sections()[0]
+    .sentences();
   t.equal(o[0].data.text, 'A-show:');
   t.equal(o[1].data.text, `A wrestling event where a company's biggest draws wrestle.`);
   t.end();
 });
 
 test('boloZenden infobox', function(t) {
-  var boloZenden = `{{Infobox football biography
+  let boloZenden = `{{Infobox football biography
     | name        = Boudewijn Zenden
     | image       = Zenden.jpg
     | image_size  = 260
@@ -38,7 +39,7 @@ test('boloZenden infobox', function(t) {
     | manageryears1  = 2012–2013 |managerclubs1 = [[Chelsea F.C.|Chelsea]] (assistant manager)
     | manageryears2  = 2013– |managerclubs2 = [[Jong PSV]] (assistant manager)
   }}`;
-  var o = wtf(boloZenden).infoboxes(0).data;
+  let o = wtf(boloZenden).infoboxes(0).data;
   t.equal(o.years1.text(), '1993–1998');
   t.equal(o.clubs1.text(), 'PSV');
   t.equal(o.youthyears1.text(), '1985–1987');
@@ -53,7 +54,7 @@ test('boloZenden infobox', function(t) {
 });
 
 test('hurricane infobox', function(t) {
-  var hurricane = `
+  let hurricane = `
 {{Infobox Hurricane
   | Name=Tropical Storm Edouard
   | Type=Tropical storm
@@ -71,7 +72,7 @@ test('hurricane infobox', function(t) {
   | Areas=[[Florida]]
   | Hurricane season=[[2002 Atlantic hurricane season]]
 }}`;
-  var o = wtf(hurricane).infoboxes(0).data;
+  let o = wtf(hurricane).infoboxes(0).data;
   t.equal(o.name.text(), 'Tropical Storm Edouard');
   t.equal(o.dissipated.text(), 'September 6, 2002');
   t.equal(o['hurricane season'].text(), '2002 Atlantic hurricane season');
@@ -80,7 +81,7 @@ test('hurricane infobox', function(t) {
 });
 
 test('parkplace disambig', function(t) {
-  var park_place = `
+  let park_place = `
 '''Park Place''' may refer to:
 {{TOC right}}
 
@@ -95,7 +96,7 @@ test('parkplace disambig', function(t) {
 * [[Park Place Mall]], Lethbridge, Alberta
 {{disambiguation}}
   `;
-  var o = wtf(park_place);
+  let o = wtf(park_place);
   t.equal(o.isDisambiguation(), true, 'is-disambiguation');
   t.equal(o.links().length, 4, 'links');
   t.equal(o.links(0).page, 'Park Place (TV series)', 'first-link');
@@ -103,7 +104,7 @@ test('parkplace disambig', function(t) {
 });
 
 test('bluejays table', function(t) {
-  var bluejays = `
+  let bluejays = `
 {| border="1" cellpadding="2" cellspacing="0" class="wikitable"
 |-
 ! bgcolor="#DDDDFF" width="4%" | Number
@@ -115,7 +116,7 @@ test('bluejays table', function(t) {
 | 2 || April 7 || @ [[Minnesota Twins|Twins]] || 9 - 3 || '''[[David Wells|Wells]]''' (1-0) || [[Mike Lincoln|Lincoln]] (0-1) || '''[[Roy Halladay|Halladay]]''' (1) || 9,220 || 1-1
 |}
   `;
-  var arr = wtf(bluejays).tables(0).data;
+  let arr = wtf(bluejays).tables(0).data;
   t.equal(arr.length, 2);
   t.equal(arr[0]['Number'].text(), '1', 'number');
   t.equal(arr[0]['Date'].text(), 'April 6', 'date');
@@ -126,7 +127,7 @@ test('bluejays table', function(t) {
   t.end();
 });
 
-var alabama = `
+let alabama = `
 {{Infobox university
 | name = The University of Alabama
 | image_name = BamaSeal.png
@@ -156,8 +157,12 @@ var alabama = `
 }}
 `;
 test('Alabama infobox', function(t) {
-  var infobox = wtf(alabama).infoboxes(0).data;
-  t.equal(infobox.athletics.text(), 'NCAA Division I – SEC', 'athletics =' + infobox.athletics.text);
+  let infobox = wtf(alabama).infoboxes(0).data;
+  t.equal(
+    infobox.athletics.text(),
+    'NCAA Division I – SEC',
+    'athletics =' + infobox.athletics.text
+  );
   t.equal(infobox.country.text(), 'U.S.', 'country =' + infobox.country.text);
   t.equal(infobox.president.text(), 'Stuart R. Bell', 'president =' + infobox.president.text);
   // t.equal(infobox.campus.text, 'Urban (small city); 1970 acre', 'campus = ' + infobox.campus.text);
@@ -165,7 +170,7 @@ test('Alabama infobox', function(t) {
 });
 
 test('Radiohead infobox', function(t) {
-  var radiohead = `{{Infobox musical artist
+  let radiohead = `{{Infobox musical artist
 | name = Radiohead
 | image = Radiohead.jpg
 | caption = Radiohead in 2006; from left to right: [[Thom Yorke]], [[Jonny Greenwood]], [[Colin Greenwood]], [[Ed O'Brien]] and [[Phil Selway]]
@@ -200,15 +205,19 @@ test('Radiohead infobox', function(t) {
 * [[Ed O'Brien]]
 * [[Philip Selway]]
 }} `;
-  var infobox = wtf(radiohead).infoboxes(0).data;
+  let infobox = wtf(radiohead).infoboxes(0).data;
   t.equal(infobox.current_members.text().match(/Greenwood/g).length, 2, 'current members');
-  t.equal(infobox.genre.text(), 'Art rock\n\nalternative rock\n\nelectronica\n\nexperimental rock', 'genre');
+  t.equal(
+    infobox.genre.text(),
+    'Art rock\n\nalternative rock\n\nelectronica\n\nexperimental rock',
+    'genre'
+  );
   t.equal(infobox.associated_acts.text(), 'Atoms for Peace\n\n7 Worlds Collide', 'associated-acts');
   t.end();
 });
 
 test('templates() list ordering', function(t) {
-  var str = `
+  let str = `
 {{Main|Royal National Lifeboat Institution lifeboats}}
 The types of boats provided at each station and the launching methods vary depending on local needs.<ref>{{Cite web|title=cool dude}}</ref>
 ==History==
@@ -219,7 +228,7 @@ The types of boats provided at each station and the launching methods vary depen
 }}
 hello there
 `;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.templates().length, 3, 'got several templates');
   t.equal(doc.infoboxes().length, 1, 'got one infobox');
   t.equal(doc.citations().length, 1, 'got citation template');
@@ -229,13 +238,13 @@ hello there
 });
 
 test('templates in infobox', function(t) {
-  var str = `{{Infobox museum
+  let str = `{{Infobox museum
   |coordinates = {{coord|41.893269|-87.622511|display=inline}}
   |image=           20070701 Arts Club of Chicago.JPG
   |website= [http://www.artsclubchicago.org www.artsclubchicago.org]
   }}
   '''Arts Club of Chicago''' is a private club located in the [[Near North Side, Chicago|Near North Side]] `;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.templates().length, 1, 'got one template');
   t.equal(doc.infoboxes().length, 1, 'got one infobox');
   t.equal(doc.images().length, 1, 'got one image');
@@ -245,10 +254,8 @@ test('templates in infobox', function(t) {
   t.end();
 });
 
-
 test('microsoft currency parsing', function(t) {
-
-  var microsoft = `
+  let microsoft = `
 {{Infobox company
 | name = Microsoft Corporation
 | logo = Microsoft logo and wordmark.svg
@@ -316,16 +323,19 @@ test('microsoft currency parsing', function(t) {
 | website = {{URL|https://microsoft.com}}
 }}
   `;
-  var infobox = wtf(microsoft).infoboxes(0).data;
+  let infobox = wtf(microsoft).infoboxes(0).data;
   t.equal(infobox.revenue.text(), 'US$89.95 billion', 'revenue =' + infobox.revenue.text);
-  t.equal(infobox.operating_income.text(), 'US$22.27 billion', 'operating_income =' + infobox.operating_income.text);
+  t.equal(
+    infobox.operating_income.text(),
+    'US$22.27 billion',
+    'operating_income =' + infobox.operating_income.text
+  );
   t.equal(infobox.net_income.text(), 'US$21.20 billion', 'net_income =' + infobox.net_income.text);
   t.end();
 });
 
-
 test('climate template', function(t) {
-  var str = `{{climate chart
+  let str = `{{climate chart
 | Toronto
 | −6.7 | -0.7 | 62
 | −5.6 |  0.4 | 55
@@ -341,13 +351,14 @@ test('climate template', function(t) {
 | −3.1 |  2.1 | 61
 |float=right
 |source= Environment Canada }}`;
-  var data = wtf(str).templates(0).data;
+  let data = wtf(str).templates(0).data;
   t.equal(data.months[0].low, -6.7, 'jan low');
   t.equal(data.months[1].precip, 55, 'feb precip');
   t.end();
 });
 test('german ones', function(t) {
-  var str = 'Buchstaben {{Taste|Q}}, {{Taste|W}}, {{Taste|E}}, {{Taste|R}}, {{Taste|T}} und {{Taste|Z}}';
+  let str =
+    'Buchstaben {{Taste|Q}}, {{Taste|W}}, {{Taste|E}}, {{Taste|R}}, {{Taste|T}} und {{Taste|Z}}';
   t.equal(wtf(str).text(), 'Buchstaben Q, W, E, R, T und Z', 'letters');
   t.end();
 });

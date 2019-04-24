@@ -1,10 +1,9 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
-var readFile = require('./lib/_cachedPage');
+const test = require('tape');
+const wtf = require('./lib');
+const readFile = require('./lib/_cachedPage');
 
 test('bluejays table', t => {
-  var arr = readFile('bluejays').tables(0).data;
+  let arr = readFile('bluejays').tables(0).data;
   t.equal(arr.length, 8, 'table-length-bluejays');
   t.equal(arr[0]['Level'].text(), 'AAA', 'level-col');
   t.equal(arr[0]['Team'].text(), 'Buffalo Bisons', 'team-col');
@@ -14,15 +13,15 @@ test('bluejays table', t => {
 });
 
 test('rnli stations', t => {
-  var doc = readFile('rnli_stations');
+  let doc = readFile('rnli_stations');
   t.equal(doc.categories().length, 5, 'cat-length');
 
-  var intro = doc.sections(0);
+  let intro = doc.sections(0);
   t.equal(intro.title(), '', 'intro-title');
   t.equal(intro.images().length > 0, true, 'intro-image-length');
   t.equal(intro.sentences().length > 0, true, 'intro-sentence-length');
 
-  var key = doc.sections(1);
+  let key = doc.sections(1);
   t.equal(key.depth, 0, 'key-depth');
   t.equal(key.title(), 'Key', 'key-title');
   t.equal(key.sentences().length, 0, 'key-no-sentences');
@@ -31,26 +30,30 @@ test('rnli stations', t => {
   t.deepEqual(key.lists(), [], 'key-no-lists');
   t.deepEqual(key.tables(), [], 'key-no-tables');
 
-  var lifeboat = doc.sections(2);
+  let lifeboat = doc.sections(2);
   t.equal(lifeboat.depth, 1, 'lifeboat-depth');
-  t.equal(lifeboat.templates(0).list[0], 'Royal National Lifeboat Institution lifeboats', 'lifeboat-main');
+  t.equal(
+    lifeboat.templates(0).list[0],
+    'Royal National Lifeboat Institution lifeboats',
+    'lifeboat-main'
+  );
   t.equal(lifeboat.lists(0).json().length, 3, 'lifeboat-list');
   t.equal(lifeboat.sentences().length, 3, 'lifeboat-sentences');
   t.deepEqual(lifeboat.images(), [], 'lifeboat-no-images');
   t.deepEqual(lifeboat.tables(), [], 'lifeboat-no-tables');
 
-  var east = doc.sections(6);
+  let east = doc.sections(6);
   t.equal(east.title(), 'East Division', 'East Division');
   t.deepEqual(east.images(), [], 'East-no-images');
   t.deepEqual(east.lists(), [], 'East-no-lists');
   t.equal(east.sentences().length, 0, 'east-sentences');
-  var table = east.tables(0).data;
+  let table = east.tables(0).data;
   t.equal(table.length, 42, 'east table-rows');
   t.equal(table[0].Location.text(), 'Hunstanton, Norfolk', 'east-table-data');
   t.equal(table[41]['Launch method'].text(), 'Carriage', 'east-table-data-end');
 
-  var south = doc.sections(7);
-  var sTable = south.tables(0).data;
+  let south = doc.sections(7);
+  let sTable = south.tables(0).data;
   t.equal(sTable.length, 35, 'south-table-rows');
   t.equal(sTable[0].Location.text(), 'Mudeford, Dorset', 'south-table-data');
   t.end();
@@ -58,7 +61,7 @@ test('rnli stations', t => {
 
 // https://en.wikipedia.org/wiki/Help:Table
 test('simple table', t => {
-  var simple = `{| class="wikitable"
+  let simple = `{| class="wikitable"
 |-
 ! Header 1
 ! Header 2
@@ -72,8 +75,8 @@ test('simple table', t => {
 | row 2, cell 2
 | row 2, cell 3
 |}`;
-  var obj = wtf(simple);
-  var table = obj.tables(0).data;
+  let obj = wtf(simple);
+  let table = obj.tables(0).data;
   t.equal(table.length, 2, '2 rows');
   t.equal(table[0]['Header 1'].text(), 'row 1, cell 1', '1,1');
   t.equal(table[0]['Header 2'].text(), 'row 1, cell 2', '1,2');
@@ -85,7 +88,7 @@ test('simple table', t => {
 });
 
 test('multiplication table', t => {
-  var mult = `{| class="wikitable" style="text-align: center; width: 200px; height: 200px;"
+  let mult = `{| class="wikitable" style="text-align: center; width: 200px; height: 200px;"
 |+ Multiplication table
 |-
 ! ×
@@ -108,8 +111,8 @@ test('multiplication table', t => {
 ! 5
 | 5 || 10 || 15
 |}`;
-  var obj = wtf(mult);
-  var table = obj.tables(0).data;
+  let obj = wtf(mult);
+  let table = obj.tables(0).data;
   t.equal(table[0]['1'].text(), '1', '1x1');
   t.equal(table[1]['1'].text(), '2', '1x2');
   t.equal(table[1]['2'].text(), '4', '2x2');
@@ -117,7 +120,7 @@ test('multiplication table', t => {
 });
 
 test('inline-table-test', t => {
-  var inline = `{| class="wikitable"
+  let inline = `{| class="wikitable"
 |+ style="text-align: left;" | Data reported for 2014–2015, by region<ref name="Garcia 2005" />
 |-
 ! scope="col" | Year !! scope="col" | Africa !! scope="col" | Americas !! scope="col" | Asia & Pacific !! scope="col" | Europe
@@ -128,8 +131,8 @@ test('inline-table-test', t => {
 ! scope="row" | 2015
 | 2,725 || ''9,200'' || 8,850 || 4,775
 |}`;
-  var obj = wtf(inline);
-  var table = obj.tables(0).data;
+  let obj = wtf(inline);
+  let table = obj.tables(0).data;
   t.equal(table[0].Year.text(), '2014', 'first year');
   t.equal(table[0].Africa.text(), '2,300', 'africa first-row');
   t.equal(table[0].Americas.text(), '8,950', 'america first-row');
@@ -139,7 +142,7 @@ test('inline-table-test', t => {
 
 test('floating-tables-test', t => {
   //we don't (and probably can't) fully support this rn
-  var floating = `{| class="wikitable floatright"
+  let floating = `{| class="wikitable floatright"
 | Col 1, row 1
 | rowspan="2" | Col 2, row 1 (and 2)
 | Col 3, row 1
@@ -155,16 +158,16 @@ test('floating-tables-test', t => {
 | Col 1, row 2
 | Col 3, row 2
 |}`;
-  var obj = wtf(floating);
+  let obj = wtf(floating);
   t.equal(obj.tables().length, 2, 'two tables');
-  var table = obj.tables(0).data;
+  let table = obj.tables(0).data;
   t.equal(table[0]['col1'].text(), 'Col 1, row 1', '1,1');
   t.end();
 });
 
 test('wikisortable-tables-test', t => {
   //we don't (and probably can't) fully support this rn
-  var sortable = `{| class="wikitable sortable"
+  let sortable = `{| class="wikitable sortable"
 |+ Sortable table
 |-
 ! scope="col" | Alphabetic
@@ -182,9 +185,9 @@ test('wikisortable-tables-test', t => {
 |-
 | e || 0 || 1601-08-13 || sorted.
 |}`;
-  var obj = wtf(sortable);
+  let obj = wtf(sortable);
   t.equal(obj.tables().length, 1, 'one table');
-  var table = obj.tables(0).data;
+  let table = obj.tables(0).data;
   t.equal(table[0]['Alphabetic'].text(), 'd', '1,1');
   t.equal(table[0]['Numeric'].text(), '20', '1,2');
   t.equal(table[0]['Date'].text(), '2008-11-24', '1,3');
@@ -196,9 +199,8 @@ test('wikisortable-tables-test', t => {
   t.end();
 });
 
-
 test('messy-table-test', t => {
-  var messy = ` {| class="wikitable"
+  let messy = ` {| class="wikitable"
      |[[File:Worms 01.jpg|199x95px]]
       |[[File:Worms Wappen 2005-05-27.jpg|199x95px]]
   |<!--col3-->[[File:Liberty-statue-with-manhattan.jpg|199x95px]]
@@ -211,8 +213,8 @@ test('messy-table-test', t => {
   |Statue of Liberty
   |New York City
  |}`;
-  var obj = wtf(messy);
-  var table = obj.tables(0).json();
+  let obj = wtf(messy);
+  let table = obj.tables(0).json();
   t.equal(table[1]['col1'].text, 'Nibelungen Bridge to Worms', 'col1 text');
   // var keyVal=obj.tables(0).keyValue()
   // t.equal()
@@ -220,7 +222,7 @@ test('messy-table-test', t => {
 });
 
 test('embedded-table', t => {
-  var str = ` {|
+  let str = ` {|
   | one
   | two
   | three
@@ -235,7 +237,7 @@ test('embedded-table', t => {
   |[[Chicago]]
   |}
   `;
-  var tables = wtf(str).tables();
+  let tables = wtf(str).tables();
   t.equal(tables.length, 2, 'found both tables');
   t.equal(tables[0].links().length, 1, 'found one link');
   t.equal(tables[1].links().length, 1, 'found another link');
@@ -243,7 +245,7 @@ test('embedded-table', t => {
 });
 
 test('embedded-table-2', t => {
-  var str = ` {| class="oopsie"
+  let str = ` {| class="oopsie"
   | first row
   |-
   | Secod row
@@ -259,17 +261,15 @@ test('embedded-table-2', t => {
   |}
 
   Actual first sentence is here`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.tables().length, 2, 'found both tables');
-  var text = doc.sentences(0).text();
+  let text = doc.sentences(0).text();
   t.equal('Actual first sentence is here', text, 'got proper first sentence');
   t.end();
 });
 
-
-
 test('sortable table', t => {
-  var str = `{|class="wikitable sortable"
+  let str = `{|class="wikitable sortable"
   !Name and Surname!!Height
   |-
   |data-sort-value="Smith, John"|John Smith||1.85
@@ -280,15 +280,15 @@ test('sortable table', t => {
   |-
   !Average:||1.82
   |}`;
-  var doc = wtf(str);
-  var row = doc.tables(0).data[0];
+  let doc = wtf(str);
+  let row = doc.tables(0).data[0];
   t.equal(row.Height.text(), '1.85', 'got height');
   t.equal(row['Name and Surname'].text(), 'John Smith', 'got name');
   t.end();
 });
 
 test('missing-row test', t => {
-  var str = `{|class="wikitable"
+  let str = `{|class="wikitable"
   |-
   ! style="background:#ddf; width:0;"| #
   ! style="background:#ddf; width:11%;"| Date
@@ -310,15 +310,14 @@ test('missing-row test', t => {
   |-align="center" bgcolor="bbffbb"
   |}
   Actual first sentence  is here`;
-  var row = wtf(str).tables(0).data[0];
+  let row = wtf(str).tables(0).data[0];
   t.equal(row.Save.text(), '', 'got empty property');
   t.equal(row.Record.text(), '2–0', 'got last property');
   t.end();
 });
 
-
 test('table newline removal', t => {
-  var str = `hello this is the top
+  let str = `hello this is the top
 {| class="wikitable" style="font-size: 95%;"
 | 1
 | [[Daugpiļs]]
@@ -330,13 +329,13 @@ test('table newline removal', t => {
 | [[Rēzne]]
 |}
 `;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.text(), 'hello this is the top', 'text on top');
   t.end();
 });
 
 test('table rowspan', t => {
-  var str = `{| class="wikitable"
+  let str = `{| class="wikitable"
 | rowspan="2"| one
 | two
 | three
@@ -344,8 +343,8 @@ test('table rowspan', t => {
 | two B
 | three B
 |}`;
-  var doc = wtf(str);
-  var table = doc.tables(0).keyValue();
+  let doc = wtf(str);
+  let table = doc.tables(0).keyValue();
   t.equal(table[0].col1, 'one', 'has init');
   t.equal(table[1].col1, 'one', 'has copy');
   t.equal(table[0].col2, 'two', 'has later');
@@ -356,7 +355,7 @@ test('table rowspan', t => {
 });
 
 test('table colspan', t => {
-  var str = `{| class="wikitable"
+  let str = `{| class="wikitable"
 | colspan="2" style="text-align:center;"| one/two
 | three
 |-
@@ -364,8 +363,8 @@ test('table colspan', t => {
 | two B
 | three B
 |}`;
-  var doc = wtf(str);
-  var table = doc.tables(0).keyValue();
+  let doc = wtf(str);
+  let table = doc.tables(0).keyValue();
   t.equal(table[0].col1, 'one/two', 'has init');
   t.equal(table[0].col2, '', 'has empty span');
   t.equal(table[0].col3, 'three', 'has after span');
@@ -378,7 +377,7 @@ test('table colspan', t => {
 
 //use first row as the table header
 test('first-row as header', t => {
-  var simple = `{| class="wikitable"
+  let simple = `{| class="wikitable"
 |-
 | Name
 | Country
@@ -392,8 +391,8 @@ test('first-row as header', t => {
 |-
 | may || sweden || caption
 |}`;
-  var obj = wtf(simple);
-  var table = obj.tables(0).json();
+  let obj = wtf(simple);
+  let table = obj.tables(0).json();
   t.equal(table.length, 4, '4 rows');
   t.equal(table[0]['name'].text, 'spencer', 'got name 1');
   t.equal(table[0]['country'].text, 'canada', 'got country 1');
@@ -404,7 +403,7 @@ test('first-row as header', t => {
 
 //two-row header composite
 test('two-rows as header', t => {
-  var str = `{| class="wikitable"
+  let str = `{| class="wikitable"
   |-
   ! A
   ! B
@@ -419,7 +418,9 @@ test('two-rows as header', t => {
   |-
   | a || b || c || d || e
   |}`;
-  var table = wtf(str).tables(0).keyValue();
+  let table = wtf(str)
+    .tables(0)
+    .keyValue();
   t.equal(table.length, 1, '1 row');
   t.equal(table[0].A, 'a', 'got col 1');
   t.equal(table[0].D2, 'd', 'got col d2');
@@ -429,7 +430,7 @@ test('two-rows as header', t => {
 
 //two-row header with spans
 test('two-header-rows-with-spans', t => {
-  var str = `{| class="wikitable"
+  let str = `{| class="wikitable"
   |-
   ! A
   ! B
@@ -443,7 +444,9 @@ test('two-header-rows-with-spans', t => {
   |-
   | a || b || c || d || e
   |}`;
-  var table = wtf(str).tables(0).keyValue();
+  let table = wtf(str)
+    .tables(0)
+    .keyValue();
   t.equal(table.length, 1, '1 row');
   t.equal(table[0].A, 'a', 'got col 1');
   t.equal(table[0].C, 'c', 'got col c');
@@ -454,7 +457,7 @@ test('two-header-rows-with-spans', t => {
 
 //nfl football table
 test('junky-table', t => {
-  var str = `{| class="navbox plainrowheaders wikitable" style="width:100%"
+  let str = `{| class="navbox plainrowheaders wikitable" style="width:100%"
   ! A
   ! B
   ! C
@@ -471,7 +474,9 @@ test('junky-table', t => {
   |[[Hard Rock Stadium]]
   |-
   |}`;
-  var table = wtf(str).tables(0).keyValue();
+  let table = wtf(str)
+    .tables(0)
+    .keyValue();
   t.equal(table.length, 2, '2 row2');
   t.equal(table[0].A, 'East', 'got col a1');
   t.equal(table[0].C, 'Orchard Park, New York', 'got col c1');
@@ -480,9 +485,8 @@ test('junky-table', t => {
   t.end();
 });
 
-
 test('table newlines', t => {
-  var str = `{| class="wikitable"
+  let str = `{| class="wikitable"
 |-
 ! h1
 ! h2
@@ -498,8 +502,8 @@ test('table newlines', t => {
 || cc
 || ccc
 |}`;
-  var doc = wtf(str);
-  var data = doc.tables(0).keyValue();
+  let doc = wtf(str);
+  let data = doc.tables(0).keyValue();
   t.equal(data[0].h1, 'a', 'h1');
   t.equal(data[0].h2, 'aa', 'h2');
   t.equal(data[0].h3, 'aaa', 'h3');

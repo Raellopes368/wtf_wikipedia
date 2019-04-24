@@ -1,11 +1,10 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
-var tidy = require('./lib/tidy');
+const test = require('tape');
+const wtf = require('./lib');
+const tidy = require('./lib/tidy');
 
 test('basic-html', t => {
-  var have = wtf('that cat is [[a]] cool dude').html();
-  var want = `<!DOCTYPE html>
+  let have = wtf('that cat is [[a]] cool dude').html();
+  let want = `<!DOCTYPE html>
 <html>
 <head></head>
 <body>
@@ -38,7 +37,6 @@ test('basic-html', t => {
 </html>
 `;
   t.equal(tidy.html(have), tidy.html(want), 'link-blank');
-
 
   //2 ticks
   have = wtf(`i ''think'' so`).html();

@@ -1,5 +1,5 @@
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('currency-templates', function(t) {
   let doc = wtf('hello {{GBP|123.45}} world.');

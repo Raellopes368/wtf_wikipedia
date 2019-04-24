@@ -1,23 +1,27 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('list-templates', function(t) {
-  var arr = [
+  let arr = [
     [`pagelist`, `{{Pagelist|X1|X2|X3|X4|X5}}`],
     [`catlist`, `{{Catlist|1989|1990|1991|1992|1993}}`],
     [`br`, `{{br separated entries|entry1|entry2| }}`],
     [`bulleted`, `{{bulleted list |one |two |three}}`],
     [`comma`, `{{comma separated entries|entry1|entry2|entry3| }}`],
-    [`flatlist`, ` {{flatlist|
+    [
+      `flatlist`,
+      ` {{flatlist|
  * [[cat]]
  * [[dog]]
  * [[horse]]
  * [[cow]]
  * [[sheep]]
  * [[pig]]
- }}`],
-    [`bare anchored list`, `{{bare anchored list
+ }}`
+    ],
+    [
+      `bare anchored list`,
+      `{{bare anchored list
 |First entry
 |Second entry
 |So on
@@ -26,9 +30,9 @@ test('list-templates', function(t) {
 }}`
     ]
   ];
-  arr.forEach((a) => {
-    var doc = wtf(a[1]);
-    var len = doc.templates().length;
+  arr.forEach(a => {
+    let doc = wtf(a[1]);
+    let len = doc.templates().length;
     t.equal(len, 0, a[0] + ' count');
     t.notEqual(doc.text(), '', a[0] + ' text exists');
     t.notEqual(doc.text(), a[1], a[0] + ' text changed');
@@ -37,19 +41,23 @@ test('list-templates', function(t) {
 });
 
 test('collapsible list', function(t) {
-  var str = `{{Collapsible list
+  let str = `{{Collapsible list
    | title = [[European Free Trade Association]] members
    | [[Iceland]]
    | [[Liechtenstein]]
    | [[Norway]]
    | [[Switzerland]]
   }}`;
-  var doc = wtf(str);
-  var tmpl = doc.templates(0) || {};
+  let doc = wtf(str);
+  let tmpl = doc.templates(0) || {};
   t.equal(tmpl.title, 'European Free Trade Association members', 'got title 1');
   t.equal(tmpl.list.length, 4, 'got list');
   t.equal(tmpl.list[1], 'Liechtenstein', 'got list member');
-  t.equal(doc.text(), 'European Free Trade Association members\n\nIceland\n\nLiechtenstein\n\nNorway\n\nSwitzerland', 'text 3');
+  t.equal(
+    doc.text(),
+    'European Free Trade Association members\n\nIceland\n\nLiechtenstein\n\nNorway\n\nSwitzerland',
+    'text 3'
+  );
 
   str = `{{Collapsible list
     |framestyle=border:none; padding:0; <!--Hides borders and improves row spacing-->
@@ -61,14 +69,18 @@ test('collapsible list', function(t) {
   t.equal(tmpl.title, 'List of MPs', 'got title 2');
   t.equal(tmpl.list.length, 5, 'got list2');
   t.equal(tmpl.list[1], 'Chris Charlton', 'got list member2');
-  t.equal(doc.text(), 'List of MPs\n\nDean Allison\n\nChris Charlton\n\nDavid Christopherson\n\nWayne Marston\n\nDavid Sweet', 'text 2');
+  t.equal(
+    doc.text(),
+    'List of MPs\n\nDean Allison\n\nChris Charlton\n\nDavid Christopherson\n\nWayne Marston\n\nDavid Sweet',
+    'text 2'
+  );
   t.end();
 });
 
 test('unbulleted list', function(t) {
-  var str = `{{unbulleted list|first item|second item|third item|}}`;
-  var doc = wtf(str);
-  var tmpl = doc.templates(0) || {};
+  let str = `{{unbulleted list|first item|second item|third item|}}`;
+  let doc = wtf(str);
+  let tmpl = doc.templates(0) || {};
   t.equal(tmpl.title, undefined, 'got title 3');
   t.equal(tmpl.list.length, 3, 'got list3');
   t.equal(tmpl.list[1], 'second item', 'got list member3');
@@ -77,9 +89,9 @@ test('unbulleted list', function(t) {
 });
 
 test('ordered list', function(t) {
-  var str = `{{Ordered list|first item|second item|third item|}}`;
-  var doc = wtf(str);
-  var tmpl = doc.templates(0) || {};
+  let str = `{{Ordered list|first item|second item|third item|}}`;
+  let doc = wtf(str);
+  let tmpl = doc.templates(0) || {};
   t.equal(tmpl.title, undefined, 'got title 4');
   t.equal(tmpl.list.length, 3, 'got list4');
   t.equal(tmpl.list[1], 'second item', 'got list member4');

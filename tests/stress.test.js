@@ -1,16 +1,15 @@
-'use strict';
-var test = require('tape');
-var readFile = require('./lib/_cachedPage');
+const test = require('tape');
+const readFile = require('./lib/_cachedPage');
 
-function isCyclic (json) {
-  var seenObjects = [];
-  function detect (obj) {
+function isCyclic(json) {
+  let seenObjects = [];
+  function detect(obj) {
     if (obj && typeof obj === 'object') {
       if (seenObjects.indexOf(obj) !== -1) {
         return true;
       }
       seenObjects.push(obj);
-      for (var key in obj) {
+      for (let key in obj) {
         if (obj.hasOwnProperty(key) && detect(obj[key])) {
           // console.log(obj, 'cycle at ' + key);
           return true;
@@ -23,7 +22,7 @@ function isCyclic (json) {
 }
 
 test('stress-test-en', t => {
-  var arr = [
+  let arr = [
     '2008-British-motorcycle-Grand-Prix',
     'AACTA-Award-for-Outstanding-Achievement-in-Short-Film-Screen-Craft',
     'Alanine—oxo-acid-transaminase',
@@ -94,7 +93,7 @@ test('stress-test-en', t => {
     'toronto',
     'toronto_star'
   ];
-  var noCitation = {
+  let noCitation = {
     list: true,
     africaans: true,
     'Sara-C.-Bisel': true,
@@ -110,38 +109,44 @@ test('stress-test-en', t => {
     'Alexander-Y-Type': true
   };
   arr.forEach(title => {
-    var doc = readFile(title);
+    let doc = readFile(title);
     //basic is-valid tests for the page parsing
     t.ok(true, title);
     t.equal(doc.isRedirect(), false, ' - - not-redirect');
     t.equal(doc.isDisambig(), false, ' - - not-disambiguation');
     t.ok(doc.categories().length > 0, ' - - cat-length');
     t.ok(doc.sections().length > 0, ' - - section-length');
-    var intro = doc.sections(0);
+    let intro = doc.sections(0);
     t.ok(intro.title() === '', ' - - intro-title-empty');
     t.ok(intro.indentation() === 0, ' - - depth=0');
     t.ok(intro.sentences().length > 0, ' - - sentences-length');
     t.ok(intro.sentences(0).text().length > 0, ' - - intro-text');
-    t.ok(intro.sentences(0).text().match(/[a-z]/), ' - - intro-has words');
+    t.ok(
+      intro
+        .sentences(0)
+        .text()
+        .match(/[a-z]/),
+      ' - - intro-has words'
+    );
     if (noCitation[title] === true) {
       t.equal(doc.citations().length, 0, title + ' has no citation');
     } else {
       t.ok(doc.citations().length > 0, title + ' has a citation');
     }
-    var text = doc.text();
+    let text = doc.text();
     t.ok(text.length > 40, ' - - text-length');
 
-    var md = doc.markdown();
+    let md = doc.markdown();
     t.ok(md.length > 40, ' - - markdown-length-ok');
 
-    var latex = doc.latex();
+    let latex = doc.latex();
     t.ok(latex.length > 40, ' - - latex-length-ok');
 
-    var html = doc.html();
+    let html = doc.html();
     t.ok(html.length > 40, ' - - html-length');
     t.ok(html.match(/\</), ' - - html-has tag');
 
-    var json = doc.json({
+    let json = doc.json({
       encode: true
     });
     t.ok(Object.keys(json).length >= 2, ' - - json-keys-ok');

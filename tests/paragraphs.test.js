@@ -1,9 +1,8 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('references', t => {
-  var str = `John smith was a comedian<ref name="cool">{{cite web |url=http://supercool.com |title=John Smith sure was |last= |first= |date= |website= |publisher= |access-date= |quote=}}</ref>
+  let str = `John smith was a comedian<ref name="cool">{{cite web |url=http://supercool.com |title=John Smith sure was |last= |first= |date= |website= |publisher= |access-date= |quote=}}</ref>
 and tap-dance pioneer. He was born in glasgow<ref>irelandtimes</ref>.
 
 This is paragraph two.<ref>{{cite web |url=http://paragraphtwo.net}}</ref> It is the same deal.
@@ -12,7 +11,7 @@ This is paragraph two.<ref>{{cite web |url=http://paragraphtwo.net}}</ref> It is
 Here is the third paragraph. Nobody knows if this will work.<ref>[http://commonsense.com/everybody|says everybody]</ref>
 
 `;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.sections().length, 2, 'sections');
   t.equal(doc.paragraphs().length, 3, 'paragraphs');
   t.equal(doc.references().length, 4, 'all references');
@@ -20,9 +19,8 @@ Here is the third paragraph. Nobody knows if this will work.<ref>[http://commons
   t.end();
 });
 
-
 test('sentence/paragraphs by newlines', t => {
-  var doc = wtf(`Leading text
+  let doc = wtf(`Leading text
 
 Closing remark`);
   t.equal(doc.paragraphs().length, 2, '2 paragraphs');
@@ -31,21 +29,19 @@ Closing remark`);
   t.end();
 });
 
-
 test('bring newlines to plaintext', t => {
-  var str = `hello
+  let str = `hello
 
 
 
 world`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.text(), 'hello\n\nworld', 'plaintext has one newline');
   t.end();
 });
 
-
 test('newlines in templates', t => {
-  var str = `hello world{{cite web |url=http://coolc.om |title=whoa hello |last= |first=
+  let str = `hello world{{cite web |url=http://coolc.om |title=whoa hello |last= |first=
 
 
 
@@ -55,7 +51,7 @@ test('newlines in templates', t => {
 |quote=}}
 
 Paragraph two!`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.paragraphs().length, 2, 'paragraphs');
   t.equal(doc.paragraphs(0).text(), 'hello world', 'first paragraph');
   t.equal(doc.paragraphs(1).text(), 'Paragraph two!', '2nd paragraph');
@@ -63,7 +59,7 @@ Paragraph two!`;
 });
 
 test('newlines in tables', t => {
-  var str = `hello world. Up here.
+  let str = `hello world. Up here.
 {| class="wikitable"
 |-
 
@@ -85,7 +81,7 @@ test('newlines in tables', t => {
 |}
 
 Second paragraph here.`;
-  var doc = wtf(str);
+  let doc = wtf(str);
   t.equal(doc.paragraphs().length, 2, 'paragraphs');
   t.equal(doc.paragraphs(0).text(), 'hello world. Up here.', 'first paragraph');
   t.equal(doc.paragraphs(1).text(), 'Second paragraph here.', '2nd paragraph');
@@ -94,7 +90,7 @@ Second paragraph here.`;
 });
 
 test('cyrillic symbols', t => {
-    var str = `== Заголовок ==
+  let str = `== Заголовок ==
 Соединённые
 
 По «окончании»
@@ -106,13 +102,13 @@ test('cyrillic symbols', t => {
 Спустя
 
 В напряжённом`;
-    var doc = wtf(str);
-    t.equal(doc.paragraphs().length, 6, 'paragraphs');
-    t.equal(doc.paragraphs(0).text(), 'Соединённые', '1 paragraph');
-    t.equal(doc.paragraphs(1).text(), 'По «окончании»', '2 paragraph');
-    t.equal(doc.paragraphs(2).text(), 'После — четырёх', '3 paragraph');
-    t.equal(doc.paragraphs(3).text(), 'Лишённые', '4 paragraph');
-    t.equal(doc.paragraphs(4).text(), 'Спустя', '5 paragraph');
-    t.equal(doc.paragraphs(5).text(), 'В напряжённом', '6 paragraph');
-    t.end();
+  let doc = wtf(str);
+  t.equal(doc.paragraphs().length, 6, 'paragraphs');
+  t.equal(doc.paragraphs(0).text(), 'Соединённые', '1 paragraph');
+  t.equal(doc.paragraphs(1).text(), 'По «окончании»', '2 paragraph');
+  t.equal(doc.paragraphs(2).text(), 'После — четырёх', '3 paragraph');
+  t.equal(doc.paragraphs(3).text(), 'Лишённые', '4 paragraph');
+  t.equal(doc.paragraphs(4).text(), 'Спустя', '5 paragraph');
+  t.equal(doc.paragraphs(5).text(), 'В напряжённом', '6 paragraph');
+  t.end();
 });

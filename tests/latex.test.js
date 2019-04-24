@@ -1,51 +1,69 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
-var tidy = require('./lib/tidy').latex;
+const test = require('tape');
+const wtf = require('./lib');
+const tidy = require('./lib/tidy').latex;
 
 test('basic-latex', t => {
-  var have = wtf('that cat is [[a]] cool dude').sentences(0).latex();
-  var want = 'that cat is \\href{./A}{a} cool dude';
+  let have = wtf('that cat is [[a]] cool dude')
+    .sentences(0)
+    .latex();
+  let want = 'that cat is \\href{./A}{a} cool dude';
   t.equal(tidy(have), tidy(want), 'link');
 
-  have = wtf('that cat is [[ab cd]] cool dude').sentences(0).latex();
+  have = wtf('that cat is [[ab cd]] cool dude')
+    .sentences(0)
+    .latex();
   want = 'that cat is \\href{./Ab_cd}{ab cd} cool dude';
   t.equal(tidy(have), tidy(want), 'link-blank');
 
-  have = wtf('that cat is [http://www.wikiversity.org ab cd] cool dude').sentences(0).latex();
+  have = wtf('that cat is [http://www.wikiversity.org ab cd] cool dude')
+    .sentences(0)
+    .latex();
   want = 'that cat is \\href{http://www.wikiversity.org}{ab cd} cool dude';
   t.equal(tidy(have), tidy(want), 'link-external');
 
   //   // Image simple
-  have = wtf(`My image [File:my_image.png]`).images(0).latex();
-  want = '\\begin{figure}\n\\includegraphics[width=\\linewidth]{https://wikipedia.org/wiki/Special:Redirect/file/My_image.png?width=300}\n\\caption{my image}\n\\end{figure}';
+  have = wtf(`My image [File:my_image.png]`)
+    .images(0)
+    .latex();
+  want =
+    '\\begin{figure}\n\\includegraphics[width=\\linewidth]{https://wikipedia.org/wiki/Special:Redirect/file/My_image.png?width=300}\n\\caption{my image}\n\\end{figure}';
   t.equal(tidy(have), tidy(want), 'image');
   t.end();
 });
 
 test('latex-formatting', t => {
   //1 tick
-  var have = wtf(`i 'think' so`).sentences(0).latex();
-  var want = `i 'think' so`;
+  let have = wtf(`i 'think' so`)
+    .sentences(0)
+    .latex();
+  let want = `i 'think' so`;
   t.equal(tidy(have), tidy(want), 'one-tick');
   //
   //   //2 ticks
-  have = wtf(`i ''think'' so`).sentences(0).latex();
+  have = wtf(`i ''think'' so`)
+    .sentences(0)
+    .latex();
   want = 'i \\textit{think} so';
   t.equal(tidy(have), tidy(want), 'italic');
 
   //3 ticks
-  have = wtf(`i '''think''' so`).sentences(0).latex();
+  have = wtf(`i '''think''' so`)
+    .sentences(0)
+    .latex();
   want = 'i \\textbf{think} so';
   t.equal(tidy(have), tidy(want), 'bold');
 
   //4 ticks
-  have = wtf(`i ''''think'''' so`).sentences(0).latex();
-  want = 'i \\textbf{\'think\'} so';
+  have = wtf(`i ''''think'''' so`)
+    .sentences(0)
+    .latex();
+  want = "i \\textbf{'think'} so";
   t.equal(tidy(have), tidy(want), 'four-tick');
 
   //5 ticks
-  have = wtf(`i '''''think''''' so`).sentences(0).latex();
+  have = wtf(`i '''''think''''' so`)
+    .sentences(0)
+    .latex();
   want = 'i 	\\textbf{\\textit{think}} so';
   t.equal(tidy(have), tidy(want), 'five-tick');
   t.end();

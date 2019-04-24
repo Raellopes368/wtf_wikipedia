@@ -1,16 +1,15 @@
-'use strict';
-var test = require('tape');
-var fs = require('fs');
-var path = require('path');
-var wtf = require('./lib');
-var docs = require('../api');
+const test = require('tape');
+const fs = require('fs');
+const path = require('path');
+const wtf = require('./lib');
+const docs = require('../api');
 
 //read cached file
-var readFile = function(file) {
+const readFile = function(file) {
   return fs.readFileSync(path.join(__dirname, 'cache', file + '.txt'), 'utf-8');
 };
 
-var pages = [
+const pages = [
   'al_Haytham',
   'Mozilla-Firefox',
   'anarchism',
@@ -24,10 +23,10 @@ var pages = [
 ];
 
 test('Document-methods-do-not-throw', t => {
-  pages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    docs.Document.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  pages.forEach(page => {
+    let doc = wtf(readFile(page));
+    docs.Document.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       doc[obj.name]();
       t.ok(true, desc);
     });
@@ -36,11 +35,11 @@ test('Document-methods-do-not-throw', t => {
 });
 
 test('Section-methods-do-not-throw', t => {
-  pages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sec = doc.sections(0);
-    docs.Section.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  pages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sec = doc.sections(0);
+    docs.Section.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sec[obj.name]();
       t.ok(true, desc);
     });
@@ -49,11 +48,11 @@ test('Section-methods-do-not-throw', t => {
 });
 
 test('Sentence-methods-do-not-throw', t => {
-  pages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sen = doc.sentences(0);
-    docs.Sentence.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  pages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sen = doc.sentences(0);
+    docs.Sentence.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sen[obj.name]();
       t.ok(true, desc);
     });
@@ -62,11 +61,11 @@ test('Sentence-methods-do-not-throw', t => {
 });
 
 test('Reference-methods-do-not-throw', t => {
-  pages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sen = doc.references(0);
-    docs.Reference.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  pages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sen = doc.references(0);
+    docs.Reference.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sen[obj.name]();
       t.ok(true, desc);
     });
@@ -75,11 +74,11 @@ test('Reference-methods-do-not-throw', t => {
 });
 
 test('Image-methods-do-not-throw', t => {
-  pages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sen = doc.images(0);
-    docs.Image.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  pages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sen = doc.images(0);
+    docs.Image.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sen[obj.name]();
       t.ok(true, desc);
     });
@@ -88,7 +87,7 @@ test('Image-methods-do-not-throw', t => {
 });
 
 test('Infobox-methods-do-not-throw', t => {
-  var mypages = [
+  let mypages = [
     'al_Haytham',
     'Mozilla-Firefox',
     'toronto',
@@ -98,11 +97,11 @@ test('Infobox-methods-do-not-throw', t => {
     'Allen-R.-Morris',
     'Irina-Saratovtseva'
   ];
-  mypages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sen = doc.infoboxes(0);
-    docs.Infobox.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  mypages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sen = doc.infoboxes(0);
+    docs.Infobox.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sen[obj.name]();
       t.ok(true, desc);
     });
@@ -111,7 +110,7 @@ test('Infobox-methods-do-not-throw', t => {
 });
 
 test('List-methods-do-not-throw', t => {
-  var mypages = [
+  let mypages = [
     'al_Haytham',
     'Mozilla-Firefox',
     'toronto',
@@ -119,11 +118,11 @@ test('List-methods-do-not-throw', t => {
     'jodie_emery',
     'Allen-R.-Morris'
   ];
-  mypages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sen = doc.lists(0);
-    docs.List.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  mypages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sen = doc.lists(0);
+    docs.List.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sen[obj.name]();
       t.ok(true, desc);
     });
@@ -132,17 +131,12 @@ test('List-methods-do-not-throw', t => {
 });
 
 test('Table-methods-do-not-throw', t => {
-  var mypages = [
-    'Mozilla-Firefox',
-    'toronto',
-    'Allen-R.-Morris',
-    'bluejays'
-  ];
-  mypages.forEach((page) => {
-    var doc = wtf(readFile(page));
-    var sen = doc.tables(0);
-    docs.Table.forEach((obj) => {
-      var desc = obj.name + ' - ' + page;
+  let mypages = ['Mozilla-Firefox', 'toronto', 'Allen-R.-Morris', 'bluejays'];
+  mypages.forEach(page => {
+    let doc = wtf(readFile(page));
+    let sen = doc.tables(0);
+    docs.Table.forEach(obj => {
+      let desc = obj.name + ' - ' + page;
       sen[obj.name]();
       t.ok(true, desc);
     });

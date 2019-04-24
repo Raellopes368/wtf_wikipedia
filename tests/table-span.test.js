@@ -1,6 +1,5 @@
-'use strict';
-var test = require('tape');
-var wtf = require('./lib');
+const test = require('tape');
+const wtf = require('./lib');
 
 test('arenas table', t => {
   let str = `{|class="wikitable" cellpadding="0" cellspacing="0" style="font-size: 85%; text-align: center;"
@@ -31,7 +30,7 @@ test('arenas table', t => {
 |}`;
   let doc = wtf(str);
   let rows = doc.tables(0).keyValue();
-  rows = rows.filter((r) => r.Arena);
+  rows = rows.filter(r => r.Arena);
   t.equal(rows.length, 2, 'two rows');
   t.equal(rows[0].Team, 'Boston Bruins', 'got team');
   t.equal(rows[0].Arena, 'Boston Garden', 'got arena');
