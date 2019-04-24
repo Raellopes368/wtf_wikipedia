@@ -4,7 +4,7 @@ const defaults = {
   infoboxes: true,
   headers: true,
   sections: true,
-  links: true,
+  links: true
 };
 // we should try to make this look like the wikipedia does, i guess.
 const softRedirect = function(doc) {
@@ -41,7 +41,10 @@ const toHtml = function(doc, options) {
   }
   //render infoboxes (up at the top)
   if (options.infoboxes === true) {
-    html += doc.infoboxes().map(i => i.html(options)).join('\n');
+    html += doc
+      .infoboxes()
+      .map(i => i.html(options))
+      .join('\n');
   }
   //render each section
   if (options.sections === true && (options.paragraphs === true || options.sentences === true)) {
@@ -50,7 +53,10 @@ const toHtml = function(doc, options) {
   //default off
   if (options.references === true) {
     html += '<h2>References</h2>';
-    html += doc.references().map((c) => c.json(options)).join('\n');
+    html += doc
+      .references()
+      .map(c => c.json(options))
+      .join('\n');
   }
   html += '</body>\n';
   html += '</html>';

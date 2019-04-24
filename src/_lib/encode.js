@@ -13,9 +13,9 @@ const encodeStr = function(str) {
   return str;
 };
 
-const encodeObj = function( obj = {} ) {
+const encodeObj = function(obj = {}) {
   let keys = Object.keys(obj);
-  for(let i = 0; i < keys.length; i += 1) {
+  for (let i = 0; i < keys.length; i += 1) {
     if (specialChar.test(keys[i]) === true) {
       let str = encodeStr(keys[i]);
       if (str !== keys[i]) {

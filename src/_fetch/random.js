@@ -28,25 +28,27 @@ const postProcess = function(data, options) {
     return parseDoc(text, options);
   } catch (e) {
     console.error(e);
-    throw e
+    throw e;
   }
 };
 
 //fetch and parse a random page from the api
 const getRandom = function(a, b, c) {
-  let {lang, options, callback} = getParams(a, b, c);
+  let { lang, options, callback } = getParams(a, b, c);
   let url = makeUrl(lang);
   return new Promise(function(resolve, reject) {
     let p = request(url, options);
-    p.then((res) => {
+    p.then(res => {
       return postProcess(res, options);
-    }).then((doc) => {
-      //support 'err-back' format
-      if (typeof callback === 'function') {
-        callback(null, doc);
-      }
-      resolve(doc);
-    }).catch(reject);
+    })
+      .then(doc => {
+        //support 'err-back' format
+        if (typeof callback === 'function') {
+          callback(null, doc);
+        }
+        resolve(doc);
+      })
+      .catch(reject);
   });
 };
 module.exports = getRandom;

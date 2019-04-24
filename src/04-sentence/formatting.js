@@ -1,4 +1,3 @@
-
 //handle the bold/italics
 const formatting = function(obj) {
   let bolds = [];

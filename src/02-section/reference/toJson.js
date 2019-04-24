@@ -1,4 +1,3 @@
-
 //
 const toJson = function(c) {
   return c.data;

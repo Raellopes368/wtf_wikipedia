@@ -17,7 +17,8 @@ const methods = {
     let arr = this.data.links || [];
     if (typeof n === 'number') {
       return arr[n];
-    } else if (typeof n === 'string') { //grab a link like .links('Fortnight')
+    } else if (typeof n === 'string') {
+      //grab a link like .links('Fortnight')
       n = n.charAt(0).toUpperCase() + n.substring(1); //titlecase it
       let link = arr.find(o => o.page === n);
       return link === undefined ? [] : [link];
@@ -61,33 +62,34 @@ const methods = {
     }
     return arr;
   },
-  markdown : function(options) {
+  markdown: function(options) {
     options = options || {};
     return toMarkdown(this, options);
   },
-  html : function(options) {
+  html: function(options) {
     options = options || {};
     return toHtml(this, options);
   },
-  text : function(str) {
-    if (str !== undefined && typeof str === 'string') { //set the text?
+  text: function(str) {
+    if (str !== undefined && typeof str === 'string') {
+      //set the text?
       this.data.text = str;
     }
     return this.data.text || '';
   },
-  json : function(options) {
+  json: function(options) {
     return toJSON(this, options);
   },
-  latex : function(options) {
+  latex: function(options) {
     return toLatex(this, options);
   }
 };
 
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   Sentence.prototype[k] = methods[k];
 });
 //add alises, too
-Object.keys(aliasList).forEach((k) => {
+Object.keys(aliasList).forEach(k => {
   Sentence.prototype[k] = methods[aliasList[k]];
 });
 Sentence.prototype.italic = Sentence.prototype.italics;

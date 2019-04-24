@@ -1,7 +1,7 @@
 const dontDo = require('./_skip-keys');
 const setDefaults = require('../_lib/setDefaults');
 const defaults = {
-  images: true,
+  images: true
 };
 
 //
@@ -11,7 +11,7 @@ const infobox = function(obj, options) {
   out += '\\begin{tabular}{|@{\\qquad}l|p{9.5cm}@{\\qquad}|} \n';
   out += '  \\hline  %horizontal line\n';
   //todo: render top image here
-  Object.keys(obj.data).forEach((k) => {
+  Object.keys(obj.data).forEach(k => {
     if (dontDo[k] === true) {
       return;
     }

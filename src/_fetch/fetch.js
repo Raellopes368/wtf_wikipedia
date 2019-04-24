@@ -27,7 +27,7 @@ const postProcess = function(data) {
       return parseDoc(text, opt);
     } catch (e) {
       console.error(e);
-      throw e
+      throw e;
     }
   });
   return docs;
@@ -38,7 +38,7 @@ const doPages = function(pages, results, lang, options, cb) {
   let todo = pages.slice(0, MAX_PAGES);
   let url = makeUrl(todo, lang, options);
   let p = request(url, options);
-  p.then((wiki) => {
+  p.then(wiki => {
     let res = postProcess(wiki, options);
     results = results.concat(res);
     let remain = pages.slice(MAX_PAGES);
@@ -46,18 +46,18 @@ const doPages = function(pages, results, lang, options, cb) {
       return doPages(remain, results, lang, options, cb); //recursive
     }
     return cb(results);
-  }).catch((e) => {
+  }).catch(e => {
     console.error('wtf_wikipedia error: ' + e);
     cb(results);
   });
 };
 
 //grab a single, or list of pages (or ids)
-const fetchPage = function( pages = [] , a, b, c) {
+const fetchPage = function(pages = [], a, b, c) {
   if (typeof pages !== 'object') {
     pages = [pages];
   }
-  let {lang, options, callback} = getParams(a, b, c);
+  let { lang, options, callback } = getParams(a, b, c);
   return new Promise(function(resolve, reject) {
     // courtesy-check for spamming wp servers
     if (pages.length > 500) {
@@ -65,8 +65,8 @@ const fetchPage = function( pages = [] , a, b, c) {
       reject('Requested too many pages, exiting.');
       return;
     }
-    doPages(pages, [], lang, options, (docs) => {
-      docs = docs.filter((d) => d !== null);
+    doPages(pages, [], lang, options, docs => {
+      docs = docs.filter(d => d !== null);
       //return the first doc, if we only asked for one
       if (pages.length === 1) {
         docs = docs[0];

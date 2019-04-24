@@ -1,4 +1,5 @@
 const tableParser = require('../table/parse');
+const gameLog = /\{\{mlb game log (section|month)[\s\S]+?\{\{mlb game log (section|month) end\}\}/gi;
 //https://en.wikipedia.org/wiki/Template:MLB_game_log_section
 
 //this is pretty nuts
@@ -17,15 +18,15 @@ const whichHeadings = function(tmpl) {
 };
 
 const parseMlb = function(wiki, section) {
-  wiki = wiki.replace(/\{\{mlb game log (section|month)[\s\S]+?\{\{mlb game log (section|month) end\}\}/gi, (tmpl) => {
+  wiki = wiki.replace(gameLog, tmpl => {
     let headings = whichHeadings(tmpl);
     tmpl = tmpl.replace(/^\{\{.*?\}\}/, '');
     tmpl = tmpl.replace(/\{\{mlb game log (section|month) end\}\}/i, '');
     let headers = '! ' + headings.join(' !! ');
     let table = '{|\n' + headers + '\n' + tmpl + '\n|}';
     let rows = tableParser(table);
-    rows = rows.map((row) => {
-      Object.keys(row).forEach((k) => {
+    rows = rows.map(row => {
+      Object.keys(row).forEach(k => {
         row[k] = row[k].text();
       });
       return row;

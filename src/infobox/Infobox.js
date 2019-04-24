@@ -20,12 +20,13 @@ const methods = {
   },
   links: function(n) {
     let arr = [];
-    Object.keys(this.data).forEach((k) => {
-      this.data[k].links().forEach((l) => arr.push(l));
+    Object.keys(this.data).forEach(k => {
+      this.data[k].links().forEach(l => arr.push(l));
     });
     if (typeof n === 'number') {
       return arr[n];
-    } else if (typeof n === 'string') { //grab a link like .links('Fortnight')
+    } else if (typeof n === 'string') {
+      //grab a link like .links('Fortnight')
       n = n.charAt(0).toUpperCase() + n.substring(1); //titlecase it
       let link = arr.find(o => o.page === n);
       return link === undefined ? [] : [link];
@@ -42,10 +43,10 @@ const methods = {
     obj.text = '';
     return new Image(obj);
   },
-  get : function( key = '' ) {
+  get: function(key = '') {
     key = key.toLowerCase();
     let keys = Object.keys(this.data);
-    for(let i = 0; i < keys.length; i += 1) {
+    for (let i = 0; i < keys.length; i += 1) {
       let tmp = keys[i].toLowerCase().trim();
       if (key === tmp) {
         return this.data[keys[i]];
@@ -53,26 +54,26 @@ const methods = {
     }
     return null;
   },
-  markdown : function(options) {
+  markdown: function(options) {
     options = options || {};
     return toMarkdown(this, options);
   },
-  html : function(options) {
+  html: function(options) {
     options = options || {};
     return toHtml(this, options);
   },
-  latex : function(options) {
+  latex: function(options) {
     options = options || {};
     return toLatex(this, options);
   },
-  text : function() {
+  text: function() {
     return '';
   },
-  json : function(options) {
+  json: function(options) {
     options = options || {};
     return toJson(this, options);
   },
-  keyValue : function() {
+  keyValue: function() {
     return Object.keys(this.data).reduce((h, k) => {
       if (this.data[k]) {
         h[k] = this.data[k].text();
@@ -83,11 +84,11 @@ const methods = {
 };
 //aliases
 
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   Infobox.prototype[k] = methods[k];
 });
 //add alises, too
-Object.keys(aliasList).forEach((k) => {
+Object.keys(aliasList).forEach(k => {
   Infobox.prototype[k] = methods[aliasList[k]];
 });
 Infobox.prototype.data = Infobox.prototype.keyValue;

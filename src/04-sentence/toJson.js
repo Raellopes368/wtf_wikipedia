@@ -6,7 +6,7 @@ const defaults = {
   links: true,
   formatting: true,
   dates: true,
-  numbers: true,
+  numbers: true
 };
 
 const toJSON = function(s, options) {

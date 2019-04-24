@@ -47,7 +47,7 @@ const getInfobox = function(doc) {
     name: doc.title() || obj.name,
     missions: obj.mission || '',
     born: obj.born || obj.birth_date,
-    died: obj.died || obj.death_date,
+    died: obj.died || obj.death_date
   };
 };
 

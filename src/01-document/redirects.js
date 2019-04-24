@@ -1,7 +1,8 @@
-const i18n = require('../_data/i18n');
 const parseLink = require('../04-sentence/links');
+const i18n = require('../_data/i18n');
+const redirects = i18n.redirects.join('|');
 //pulls target link out of redirect page
-const REDIRECT_REGEX = new RegExp('^[ \n\t]*?#(' + i18n.redirects.join('|') + ') *?(\\[\\[.{2,180}?\\]\\])', 'i');
+const REDIRECT_REGEX = new RegExp('^[ \n\t]*?#(' + redirects + ') *?(\\[\\[.{2,180}?\\]\\])', 'i');
 
 const isRedirect = function(wiki) {
   //too long to be a redirect?

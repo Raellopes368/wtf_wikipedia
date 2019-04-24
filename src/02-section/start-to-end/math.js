@@ -20,7 +20,7 @@ const parseMath = function(wiki, section) {
   wiki = wiki.replace(/<chem([^>]*?)>([\s\S]+?)<\/chem>/g, (_, attrs, inside) => {
     section.templates.push({
       template: 'chem',
-      data: inside,
+      data: inside
     });
     return '';
   });

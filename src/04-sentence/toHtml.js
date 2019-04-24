@@ -4,7 +4,7 @@ const setDefaults = require('../_lib/setDefaults');
 
 const defaults = {
   links: true,
-  formatting: true,
+  formatting: true
 };
 // create links, bold, italic in html
 const doSentence = function(sentence, options) {
@@ -12,7 +12,7 @@ const doSentence = function(sentence, options) {
   let text = sentence.text();
   //turn links into <a href>
   if (options.links === true) {
-    sentence.links().forEach((link) => {
+    sentence.links().forEach(link => {
       let href = '';
       let classNames = 'link';
       if (link.site) {
@@ -35,12 +35,12 @@ const doSentence = function(sentence, options) {
   }
   if (options.formatting === true) {
     //support bolds
-    sentence.bold().forEach((str) => {
+    sentence.bold().forEach(str => {
       let tag = '<b>' + str + '</b>';
       text = smartReplace(text, str, tag);
     });
     //do italics
-    sentence.italic().forEach((str) => {
+    sentence.italic().forEach(str => {
       let tag = '<i>' + str + '</i>';
       text = smartReplace(text, str, tag);
     });

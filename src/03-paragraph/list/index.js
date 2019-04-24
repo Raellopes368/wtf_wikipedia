@@ -60,7 +60,7 @@ const parseList = function(wiki, data) {
       theRest.push(lines[i]);
     }
   }
-  data.lists = lists.map((l) => new List(l));
+  data.lists = lists.map(l => new List(l));
   wiki = theRest.join('\n');
   return wiki;
 };

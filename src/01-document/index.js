@@ -16,7 +16,7 @@ const main = function(wiki, options) {
     title: '',
     sections: [],
     categories: [],
-    coordinates: [],
+    coordinates: []
   };
   //detect if page is just redirect, and return it
   if (redirects.isRedirect(wiki) === true) {

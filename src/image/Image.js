@@ -67,10 +67,11 @@ const methods = {
     }
     return null;
   },
-  exists(callback) { //check if the image (still) exists
-    return new Promise((cb) => {
+  exists(callback) {
+    //check if the image (still) exists
+    return new Promise(cb => {
       fetch(this.url(), {
-        method: 'HEAD',
+        method: 'HEAD'
       }).then(function(res) {
         const exists = res.status === 200;
         //support callback non-promise form
@@ -81,14 +82,14 @@ const methods = {
       });
     });
   },
-  markdown : function(options) {
+  markdown: function(options) {
     options = options || {};
     return toMarkdown(this, options);
   },
-  latex : function(options) {
+  latex: function(options) {
     return toLatex(this, options);
   },
-  html : function(options) {
+  html: function(options) {
     options = options || {};
     return toHtml(this, options);
   },
@@ -101,11 +102,11 @@ const methods = {
   }
 };
 
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   Image.prototype[k] = methods[k];
 });
 //add alises, too
-Object.keys(aliasList).forEach((k) => {
+Object.keys(aliasList).forEach(k => {
   Image.prototype[k] = methods[aliasList[k]];
 });
 Image.prototype.src = Image.prototype.url;

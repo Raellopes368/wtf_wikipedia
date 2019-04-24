@@ -4,7 +4,7 @@ const setDefaults = require('../_lib/setDefaults');
 
 const defaults = {
   links: true,
-  formatting: true,
+  formatting: true
 };
 // add `[text](href)` to the text
 const doLink = function(md, link) {
@@ -33,17 +33,17 @@ const toMarkdown = (sentence, options) => {
   let md = sentence.text();
   //turn links back into links
   if (options.links === true) {
-    sentence.links().forEach((link) => {
+    sentence.links().forEach(link => {
       md = doLink(md, link);
     });
   }
   //turn bolds into **bold**
   if (options.formatting === true) {
-    sentence.bold().forEach((b) => {
+    sentence.bold().forEach(b => {
       md = smartReplace(md, b, '**' + b + '**');
     });
     //support *italics*
-    sentence.italic().forEach((i) => {
+    sentence.italic().forEach(i => {
       md = smartReplace(md, i, '*' + i + '*');
     });
   }

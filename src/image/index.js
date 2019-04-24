@@ -22,7 +22,7 @@ const imgLayouts = {
   baseline: true,
   middle: true,
   sub: true,
-  super: true,
+  super: true
 };
 
 //images are usually [[image:my_pic.jpg]]
@@ -54,7 +54,7 @@ const oneImage = function(img) {
       obj.alt = imgData.alt;
     }
     //remove 'thumb' and things
-    arr = arr.filter((str) => imgLayouts.hasOwnProperty(str) === false);
+    arr = arr.filter(str => imgLayouts.hasOwnProperty(str) === false);
     if (arr[arr.length - 1]) {
       obj.caption = parseSentence(arr[arr.length - 1]);
     }

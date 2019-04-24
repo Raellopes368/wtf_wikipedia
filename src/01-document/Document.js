@@ -10,7 +10,7 @@ const Image = require('../image/Image');
 const defaults = {
   tables: true,
   lists: true,
-  paragraphs: true,
+  paragraphs: true
 };
 
 //
@@ -23,7 +23,7 @@ const Document = function(data, options) {
 };
 
 const methods = {
-  title : function(str) {
+  title: function(str) {
     //use like a setter
     if (str !== undefined) {
       this.data.title = str;
@@ -44,28 +44,28 @@ const methods = {
     }
     return guess;
   },
-  isRedirect : function() {
+  isRedirect: function() {
     return this.data.type === 'redirect';
   },
   redirectTo: function() {
     return this.data.redirectTo;
   },
-  isDisambiguation : function() {
+  isDisambiguation: function() {
     return this.data.type === 'disambiguation';
   },
-  categories : function(clue) {
+  categories: function(clue) {
     if (typeof clue === 'number') {
       return this.data.categories[clue];
     }
     return this.data.categories || [];
   },
-  sections : function(clue) {
+  sections: function(clue) {
     let arr = this.data.sections || [];
-    arr.forEach((sec) => sec.doc = this);
+    arr.forEach(sec => (sec.doc = this));
     //grab a specific section, by its title
     if (typeof clue === 'string') {
       let str = clue.toLowerCase().trim();
-      return arr.find((s) => {
+      return arr.find(s => {
         return s.title().toLowerCase() === str;
       });
     }
@@ -74,9 +74,9 @@ const methods = {
     }
     return arr;
   },
-  paragraphs : function(n) {
+  paragraphs: function(n) {
     let arr = [];
-    this.data.sections.forEach((s) => {
+    this.data.sections.forEach(s => {
       arr = arr.concat(s.paragraphs());
     });
     if (typeof n === 'number') {
@@ -84,16 +84,16 @@ const methods = {
     }
     return arr;
   },
-  paragraph : function(n) {
+  paragraph: function(n) {
     let arr = this.paragraphs() || [];
     if (typeof n === 'number') {
       return arr[n];
     }
     return arr[0];
   },
-  sentences : function(n) {
+  sentences: function(n) {
     let arr = [];
-    this.sections().forEach((sec) => {
+    this.sections().forEach(sec => {
       arr = arr.concat(sec.sentences());
     });
     if (typeof n === 'number') {
@@ -101,19 +101,19 @@ const methods = {
     }
     return arr;
   },
-  images : function(clue) {
+  images: function(clue) {
     let arr = sectionMap(this, 'images', null);
     //grab image from infobox, first
-    this.infoboxes().forEach((info) => {
+    this.infoboxes().forEach(info => {
       if (info.data.image) {
         arr.unshift(info.image()); //put it at the top
       }
     });
     //look for 'gallery' templates, too
-    this.templates().forEach((obj) => {
+    this.templates().forEach(obj => {
       if (obj.template === 'gallery') {
         obj.images = obj.images || [];
-        obj.images.forEach((img) => {
+        obj.images.forEach(img => {
           if (img instanceof Image === false) {
             img = new Image(img);
           }
@@ -126,28 +126,28 @@ const methods = {
     }
     return arr;
   },
-  links : function(clue) {
+  links: function(clue) {
     return sectionMap(this, 'links', clue);
   },
-  interwiki : function(clue) {
+  interwiki: function(clue) {
     return sectionMap(this, 'interwiki', clue);
   },
-  lists : function(clue) {
+  lists: function(clue) {
     return sectionMap(this, 'lists', clue);
   },
-  tables : function(clue) {
+  tables: function(clue) {
     return sectionMap(this, 'tables', clue);
   },
-  templates : function(clue) {
+  templates: function(clue) {
     return sectionMap(this, 'templates', clue);
   },
-  references : function(clue) {
+  references: function(clue) {
     return sectionMap(this, 'references', clue);
   },
-  coordinates : function(clue) {
+  coordinates: function(clue) {
     return sectionMap(this, 'coordinates', clue);
   },
-  infoboxes : function(clue) {
+  infoboxes: function(clue) {
     let arr = sectionMap(this, 'infoboxes');
     //sort them by biggest-first
     arr = arr.sort((a, b) => {
@@ -161,7 +161,7 @@ const methods = {
     }
     return arr;
   },
-  text : function(options) {
+  text: function(options) {
     options = setDefaults(options, defaults);
     //nah, skip these.
     if (this.isRedirect() === true) {
@@ -170,27 +170,27 @@ const methods = {
     let arr = this.sections().map(sec => sec.text(options));
     return arr.join('\n\n');
   },
-  markdown : function(options) {
+  markdown: function(options) {
     options = setDefaults(options, defaults);
     return toMarkdown(this, options);
   },
-  latex : function(options) {
+  latex: function(options) {
     options = setDefaults(options, defaults);
     return toLatex(this, options);
   },
-  html : function(options) {
+  html: function(options) {
     options = setDefaults(options, defaults);
     return toHtml(this, options);
   },
-  json : function(options) {
+  json: function(options) {
     options = setDefaults(options, defaults);
     return toJSON(this, options);
   },
   debug: function() {
     console.log('\n');
-    this.sections().forEach((sec) => {
+    this.sections().forEach(sec => {
       let indent = ' - ';
-      for(let i = 0; i < sec.depth; i += 1) {
+      for (let i = 0; i < sec.depth; i += 1) {
         indent = ' -' + indent;
       }
       console.log(indent + (sec.title() || '(Intro)'));
@@ -200,12 +200,23 @@ const methods = {
 };
 
 //add alises
-Object.keys(aliasList).forEach((k) => {
+Object.keys(aliasList).forEach(k => {
   Document.prototype[k] = methods[aliasList[k]];
 });
 //add singular-methods, too
-let plurals = ['sections', 'infoboxes', 'sentences', 'citations', 'references', 'coordinates', 'tables', 'links', 'images', 'categories'];
-plurals.forEach((fn) => {
+let plurals = [
+  'sections',
+  'infoboxes',
+  'sentences',
+  'citations',
+  'references',
+  'coordinates',
+  'tables',
+  'links',
+  'images',
+  'categories'
+];
+plurals.forEach(fn => {
   let sing = fn.replace(/ies$/, 'y');
   sing = sing.replace(/e?s$/, '');
   methods[sing] = function(n) {
@@ -214,7 +225,7 @@ plurals.forEach((fn) => {
   };
 });
 
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   Document.prototype[k] = methods[k];
 });
 

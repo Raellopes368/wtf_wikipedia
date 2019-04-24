@@ -26,7 +26,8 @@ const methods = {
     //grab a specific link..
     if (typeof n === 'number') {
       return arr[n];
-    } else if (typeof n === 'string') { //grab a link like .links('Fortnight')
+    } else if (typeof n === 'string') {
+      //grab a link like .links('Fortnight')
       n = n.charAt(0).toUpperCase() + n.substring(1); //titlecase it
       let link = arr.find(o => o.page === n);
       return link === undefined ? [] : [link];
@@ -53,7 +54,7 @@ const methods = {
     return toJson(this, options);
   }
 };
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   Reference.prototype[k] = methods[k];
 });
 module.exports = Reference;

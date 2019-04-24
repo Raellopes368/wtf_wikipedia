@@ -46,7 +46,7 @@ const internal_links = function(links, str) {
     }
     //remove anchors from end [[toronto#history]]
     var obj = {
-      page: link,
+      page: link
     };
     obj.page = obj.page.replace(/#(.*)/, (a, b) => {
       obj.anchor = b;
@@ -58,7 +58,7 @@ const internal_links = function(links, str) {
       obj.text = txt;
     }
     //finally, support [[link]]'s apostrophe
-    if (apostrophe === '\'s') {
+    if (apostrophe === "'s") {
       obj.text = obj.text || obj.page;
       obj.text += apostrophe;
     }

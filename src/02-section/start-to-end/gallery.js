@@ -8,7 +8,7 @@ const parseGallery = function(wiki, section) {
     let images = inside.split(/\n/g);
     images = images.filter(str => str && str.trim() !== '');
     //parse the line, which has an image and sometimes a caption
-    images = images.map((str) => {
+    images = images.map(str => {
       let arr = str.split(/\|/);
       let obj = {
         file: arr[0].trim()

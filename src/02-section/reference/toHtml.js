@@ -1,4 +1,3 @@
-
 //
 const toHtml = function(c, options) {
   if (c.data && c.data.url && c.data.title) {
@@ -11,7 +10,8 @@ const toHtml = function(c, options) {
   if (c.data.encyclopedia) {
     return `<div class="reference">⌃ ${c.data.encyclopedia}</div>`;
   }
-  if (c.data.title) { //cite book, etc
+  if (c.data.title) {
+    //cite book, etc
     let str = c.data.title;
     if (c.data.author) {
       str += c.data.author;

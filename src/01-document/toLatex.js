@@ -1,7 +1,7 @@
 const setDefaults = require('../_lib/setDefaults');
 const defaults = {
   infoboxes: true,
-  sections: true,
+  sections: true
 };
 
 // we should try to make this look like the wikipedia does, i guess.
@@ -26,16 +26,25 @@ const toLatex = function(doc, options) {
   }
   //render infoboxes (up at the top)
   if (options.infoboxes === true) {
-    out += doc.infoboxes().map(i => i.latex(options)).join('\n');
+    out += doc
+      .infoboxes()
+      .map(i => i.latex(options))
+      .join('\n');
   }
   //render each section
   if (options.sections === true || options.paragraphs === true || options.sentences === true) {
-    out += doc.sections().map(s => s.latex(options)).join('\n');
+    out += doc
+      .sections()
+      .map(s => s.latex(options))
+      .join('\n');
   }
   //default off
   //render citations
   if (options.citations === true) {
-    out += doc.citations().map(c => c.latex(options)).join('\n');
+    out += doc
+      .citations()
+      .map(c => c.latex(options))
+      .join('\n');
   }
   return out;
 };

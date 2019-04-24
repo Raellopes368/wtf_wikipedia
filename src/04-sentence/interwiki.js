@@ -28,14 +28,14 @@ const interwikis = [
   'm',
   'mw',
   'phab',
-  'd',
+  'd'
 ];
 let allowed = interwikis.reduce((h, wik) => {
   h[wik] = true;
   return h;
 }, {});
 //add language prefixes too..
-Object.keys(languages).forEach((k) => allowed[k] = true);
+Object.keys(languages).forEach(k => (allowed[k] = true));
 
 //this is predictably very complicated.
 // https://meta.wikimedia.org/wiki/Help:Interwiki_linking

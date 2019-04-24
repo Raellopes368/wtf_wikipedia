@@ -1,4 +1,3 @@
-
 //allow quite! flexible params to fetch, category
 // [lang], [options], [callback]
 const getParams = function(a, b, c) {

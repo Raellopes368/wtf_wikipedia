@@ -5,7 +5,7 @@ function isArray(arr) {
   return arr.constructor.toString().indexOf('Array') > -1;
 }
 
-const makeTitle = function( title = '' ) {
+const makeTitle = function(title = '') {
   //if given a url...
   if (isUrl.test(title) === true) {
     title = title.replace(/.*?\/wiki\//, '');
@@ -47,7 +47,7 @@ const makeUrl = function(title, lang, options) {
   } else {
     pages = pages.map(makeTitle);
   }
-  pages = pages.filter((p) => p !== '');
+  pages = pages.filter(p => p !== '');
   pages = pages.join('|');
   url += '&' + lookup + '=' + pages;
   return url;

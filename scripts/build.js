@@ -19,7 +19,10 @@ fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));
 fs.writeFileSync('./src/_version.js', `module.exports = '${pkg.version}'`);
 
 //final build locations
-var banner = '/* wtf_wikipedia v' + pkg.version + '\n   github.com/spencermountain/wtf_wikipedia\n   MIT\n*/\n';
+var banner =
+  '/* wtf_wikipedia v' +
+  pkg.version +
+  '\n   github.com/spencermountain/wtf_wikipedia\n   MIT\n*/\n';
 var uncompressed = './builds/wtf_wikipedia.js';
 var compressed = './builds/wtf_wikipedia.min.js';
 

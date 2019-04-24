@@ -24,7 +24,7 @@ const options = {
   list = list.concat(list2);
 
   //grab the data we want
-  let data = list.map((row) => {
+  let data = list.map(row => {
     let result = {
       name: '',
       mission: ''

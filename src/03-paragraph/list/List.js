@@ -7,10 +7,11 @@ const toLatex = require('./toLatex');
 const defaults = {};
 
 const toText = (list, options) => {
-  return list.map((s) => {
+  list = list.map(s => {
     let str = s.text(options);
     return ' * ' + str;
-  }).join('\n');
+  });
+  return list.join('\n');
 };
 
 const List = function(data) {
@@ -26,12 +27,13 @@ const methods = {
   },
   links(n) {
     let links = [];
-    this.lines().forEach((s) => {
+    this.lines().forEach(s => {
       links = links.concat(s.links());
     });
     if (typeof n === 'number') {
       return links[n];
-    } else if (typeof n === 'string') { //grab a link like .links('Fortnight')
+    } else if (typeof n === 'string') {
+      //grab a link like .links('Fortnight')
       n = n.charAt(0).toUpperCase() + n.substring(1); //titlecase it
       let link = links.find(o => o.page === n);
       return link === undefined ? [] : [link];
@@ -59,11 +61,11 @@ const methods = {
   }
 };
 
-Object.keys(methods).forEach((k) => {
+Object.keys(methods).forEach(k => {
   List.prototype[k] = methods[k];
 });
 //add alises, too
-Object.keys(aliasList).forEach((k) => {
+Object.keys(aliasList).forEach(k => {
   List.prototype[k] = methods[aliasList[k]];
 });
 module.exports = List;

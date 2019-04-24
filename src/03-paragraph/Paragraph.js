@@ -6,7 +6,7 @@ const setDefaults = require('../_lib/setDefaults');
 const defaults = {
   sentences: true,
   lists: true,
-  images: true,
+  images: true
 };
 
 const Paragraph = function(data) {
@@ -48,7 +48,8 @@ const methods = {
     });
     if (typeof n === 'number') {
       return arr[n];
-    } else if (typeof n === 'string') { //grab a specific link like .links('Fortnight')
+    } else if (typeof n === 'string') {
+      //grab a specific link like .links('Fortnight')
       n = n.charAt(0).toUpperCase() + n.substring(1); //titlecase it
       let link = arr.find(o => o.page === n);
       return link === undefined ? [] : [link];
@@ -78,7 +79,7 @@ const methods = {
     let str = this.sentences()
       .map(s => s.text(options))
       .join(' ');
-    this.lists().forEach((list) => {
+    this.lists().forEach(list => {
       str += '\n' + list.text();
     });
     return str;

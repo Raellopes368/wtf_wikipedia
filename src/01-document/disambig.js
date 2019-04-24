@@ -1,5 +1,6 @@
 const i18n = require('../_data/i18n');
-const template_reg = new RegExp('\\{\\{ ?(' + i18n.disambigs.join('|') + ')(\\|[a-z, =]*?)? ?\\}\\}', 'i');
+const disambigs = i18n.disambigs.join('|');
+const template_reg = new RegExp('\\{\\{ ?(' + disambigs + ')(\\|[a-z, =]*?)? ?\\}\\}', 'i');
 
 //special disambig-templates en-wikipedia uses
 let d = ' disambiguation';
@@ -41,7 +42,7 @@ const english = [
   'synagogue' + d,
   'taxonomic authority' + d,
   'taxonomy' + d,
-  'wp disambig',
+  'wp disambig'
 ];
 const enDisambigs = new RegExp('\\{\\{ ?(' + english.join('|') + ')(\\|[a-z, =]*?)? ?\\}\\}', 'i');
 
@@ -51,19 +52,10 @@ const isDisambig = function(wiki) {
     return true;
   }
   //more english-centric disambiguation templates
-
   //{{hndis}}, etc
   if (enDisambigs.test(wiki) === true) {
     return true;
   }
-
-  //try 'may refer to' on first line for en-wiki?
-  // let firstLine = wiki.match(/^.+?\n/);
-  // if (firstLine !== null && firstLine[0]) {
-  //   if (/ may refer to/i.test(firstLine) === true) {
-  //     return true;
-  //   }
-  // }
   return false;
 };
 

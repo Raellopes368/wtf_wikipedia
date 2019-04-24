@@ -1,11 +1,11 @@
-
 //
 const toMarkdown = function(c) {
   if (c.data && c.data.url && c.data.title) {
     return `⌃ [${c.data.title}](${c.data.url})`;
   } else if (c.data.encyclopedia) {
     return `⌃ ${c.data.encyclopedia}`;
-  } else if (c.data.title) { //cite book, etc
+  } else if (c.data.title) {
+    //cite book, etc
     let str = c.data.title;
     if (c.data.author) {
       str += c.data.author;

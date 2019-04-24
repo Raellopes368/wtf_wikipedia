@@ -24,6 +24,7 @@ const openTag = `< ?(${ignore.join('|')}) ?[^>]{0,200}?>`;
 const closeTag = `< ?/ ?(${ignore.join('|')}) ?>`;
 const anyChar = '\\s\\S'; //including newline
 const noThanks = new RegExp(`${openTag}[${anyChar}]+?${closeTag}`, 'ig');
+const xmlTags = / ?<[ \/]?(p|sub|sup|span|nowiki|div|table|br|tr|td|th|pre|pre2|hr|abbr|bdi|bdo|blockquote|cite|del|dfn|em|i|ins|kbd|mark|q|s)[ \/]?> ?/g;
 
 const kill_xml = function(wiki) {
   //(<ref> tags are parsed in Section class) - luckily, refs can't be recursive.
@@ -34,8 +35,7 @@ const kill_xml = function(wiki) {
   //only kill ref tags if they are selfclosing
   wiki = wiki.replace(/ ?< ?(ref) [a-zA-Z0-9=" ]{2,100}\/ ?> ?/g, ' '); //<ref name="asd"/>
   //some formatting xml, we'll keep their insides though
-  wiki = wiki.replace(/ ?<[ \/]?(p|sub|sup|span|nowiki|div|table|br|tr|td|th|pre|pre2|hr)[ \/]?> ?/g, ' '); //<sub>, </sub>
-  wiki = wiki.replace(/ ?<[ \/]?(abbr|bdi|bdo|blockquote|cite|del|dfn|em|i|ins|kbd|mark|q|s)[ \/]?> ?/g, ' '); //<abbr>, </abbr>
+  wiki = wiki.replace(xmlTags, ' '); //<sub>, </sub>
   wiki = wiki.replace(/ ?<[ \/]?h[0-9][ \/]?> ?/g, ' '); //<h2>, </h2>
   wiki = wiki.replace(/ ?< ?br ?\/> ?/g, '\n'); //<br />
   return wiki.trim();

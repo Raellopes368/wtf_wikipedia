@@ -3,7 +3,7 @@ const defaults = {
   title: true,
   sections: true,
   pageID: true,
-  categories: true,
+  categories: true
 };
 
 //an opinionated output of the most-wanted data

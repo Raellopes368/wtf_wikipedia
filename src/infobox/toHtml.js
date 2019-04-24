@@ -1,7 +1,7 @@
 const dontDo = require('./_skip-keys');
 const setDefaults = require('../_lib/setDefaults');
 const defaults = {
-  images: true,
+  images: true
 };
 
 //
@@ -25,7 +25,7 @@ const infobox = function(obj, options) {
     }
     html += '    </tr>\n';
   }
-  Object.keys(obj.data).forEach((k) => {
+  Object.keys(obj.data).forEach(k => {
     if (dontDo[k] === true) {
       return;
     }
