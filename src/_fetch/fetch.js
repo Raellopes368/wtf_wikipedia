@@ -1,7 +1,7 @@
 //grab the content of any article, off the api
-const request = require('./_request');
-const makeUrl = require('./_url');
-const getParams = require('./_params');
+const request = require('./03-request');
+const makeUrl = require('./02-url');
+const getParams = require('./01-params');
 const parseDoc = require('../01-document');
 //num pages per request
 const MAX_PAGES = 5;
@@ -62,7 +62,7 @@ const fetchPage = function(pages = [], a, b, c) {
     // courtesy-check for spamming wp servers
     if (pages.length > 500) {
       console.error('wtf_wikipedia error: Requested ' + pages.length + ' pages.');
-      reject('Requested too many pages, exiting.');
+      reject('Requested too many pages, please consider using a wikipedia dump instead.');
       return;
     }
     doPages(pages, [], lang, options, docs => {

@@ -1,6 +1,6 @@
+const getParams = require('./01-params');
+const request = require('./03-request');
 const site_map = require('../_data/site_map');
-const request = require('./_request');
-const getParams = require('./_params');
 const parseDoc = require('../01-document');
 
 const makeUrl = function(lang) {
