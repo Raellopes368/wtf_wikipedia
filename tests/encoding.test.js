@@ -21,7 +21,7 @@ hello world  {{lkjsdf|foo=28|hs.he=90}}.
 | row 2, cell 2
 |}
 `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let json = doc.json({
     encode: true
   });

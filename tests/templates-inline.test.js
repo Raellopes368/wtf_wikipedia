@@ -70,7 +70,7 @@ test('inline-no-data', function(t) {
     ['!bxt', `{{!bxt|inline typeface change}}`]
   ];
   arr.forEach(a => {
-    let doc = wtf(a[1]);
+    const doc = wtf(a[1]);
     let len = doc.templates().length;
     t.equal(len, 0, a[0] + ' count');
     t.notEqual(doc.text(), '', a[0] + ' text exists');
@@ -117,7 +117,7 @@ test('inline-with-data', function(t) {
     ['samp', `{{samp|1=[A]bort, [R]etry, [F]ail?}}`]
   ];
   arr.forEach(a => {
-    let doc = wtf(a[1]);
+    const doc = wtf(a[1]);
     let len = doc.templates().length;
     t.equal(len, 1, a[0] + ' count');
     t.notEqual(doc.text(), '', a[0] + ' text exists');
@@ -161,7 +161,7 @@ test('inline-output', t => {
 
 test('flags', function(t) {
   let str = `one {{flag|USA}}, two {{flag|DEU|empire}}, three {{flag|CAN|name=Canadian}}.`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.links().length, 3, 'found 3 link');
   t.equal(doc.links(1).text, 'DEU', 'link text');
   t.equal(doc.links(1).page, 'Germany', 'link page');
@@ -172,7 +172,7 @@ test('flags', function(t) {
 //this example has it all!
 test('tricky-based-on', function(t) {
   let str = `{{Based on|''[[Jurassic Park (novel)|Jurassic Park]]''|Michael Crichton}}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   // t.equal(doc.links().length, 1, 'found link');
   // t.equal(doc.links(0).text, 'Jurassic Park', 'found link text');
   // t.equal(doc.text(), `''Jurassic Park'' by Michael Crichton`, 'parsed properly');

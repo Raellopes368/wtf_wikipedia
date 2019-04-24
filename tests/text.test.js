@@ -8,7 +8,7 @@ hello
 * [http://www.lincolnbicentennial.org/ Abraham Lincoln Bicentennial Foundation]
 
 `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let want = `hello
  * Abraham Lincoln Association
  * Abraham Lincoln Bicentennial Foundation`;

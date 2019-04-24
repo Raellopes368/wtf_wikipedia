@@ -109,7 +109,7 @@ test('stress-test-en', t => {
     'Alexander-Y-Type': true
   };
   arr.forEach(title => {
-    let doc = readFile(title);
+    const doc = readFile(title);
     //basic is-valid tests for the page parsing
     t.ok(true, title);
     t.equal(doc.isRedirect(), false, ' - - not-redirect');

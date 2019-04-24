@@ -228,7 +228,7 @@ The types of boats provided at each station and the launching methods vary depen
 }}
 hello there
 `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.templates().length, 3, 'got several templates');
   t.equal(doc.infoboxes().length, 1, 'got one infobox');
   t.equal(doc.citations().length, 1, 'got citation template');
@@ -244,7 +244,7 @@ test('templates in infobox', function(t) {
   |website= [http://www.artsclubchicago.org www.artsclubchicago.org]
   }}
   '''Arts Club of Chicago''' is a private club located in the [[Near North Side, Chicago|Near North Side]] `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.templates().length, 1, 'got one template');
   t.equal(doc.infoboxes().length, 1, 'got one infobox');
   t.equal(doc.images().length, 1, 'got one image');

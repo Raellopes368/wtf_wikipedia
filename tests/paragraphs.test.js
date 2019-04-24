@@ -11,7 +11,7 @@ This is paragraph two.<ref>{{cite web |url=http://paragraphtwo.net}}</ref> It is
 Here is the third paragraph. Nobody knows if this will work.<ref>[http://commonsense.com/everybody|says everybody]</ref>
 
 `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.sections().length, 2, 'sections');
   t.equal(doc.paragraphs().length, 3, 'paragraphs');
   t.equal(doc.references().length, 4, 'all references');
@@ -20,7 +20,7 @@ Here is the third paragraph. Nobody knows if this will work.<ref>[http://commons
 });
 
 test('sentence/paragraphs by newlines', t => {
-  let doc = wtf(`Leading text
+  const doc = wtf(`Leading text
 
 Closing remark`);
   t.equal(doc.paragraphs().length, 2, '2 paragraphs');
@@ -35,7 +35,7 @@ test('bring newlines to plaintext', t => {
 
 
 world`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.text(), 'hello\n\nworld', 'plaintext has one newline');
   t.end();
 });
@@ -51,7 +51,7 @@ test('newlines in templates', t => {
 |quote=}}
 
 Paragraph two!`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.paragraphs().length, 2, 'paragraphs');
   t.equal(doc.paragraphs(0).text(), 'hello world', 'first paragraph');
   t.equal(doc.paragraphs(1).text(), 'Paragraph two!', '2nd paragraph');
@@ -81,7 +81,7 @@ test('newlines in tables', t => {
 |}
 
 Second paragraph here.`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.paragraphs().length, 2, 'paragraphs');
   t.equal(doc.paragraphs(0).text(), 'hello world. Up here.', 'first paragraph');
   t.equal(doc.paragraphs(1).text(), 'Second paragraph here.', '2nd paragraph');
@@ -102,7 +102,7 @@ test('cyrillic symbols', t => {
 Спустя
 
 В напряжённом`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.paragraphs().length, 6, 'paragraphs');
   t.equal(doc.paragraphs(0).text(), 'Соединённые', '1 paragraph');
   t.equal(doc.paragraphs(1).text(), 'По «окончании»', '2 paragraph');

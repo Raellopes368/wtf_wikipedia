@@ -2,7 +2,7 @@ const test = require('tape');
 const readFile = require('./lib/_cachedPage');
 
 test('traverse sections', t => {
-  let doc = readFile('toronto');
+  const doc = readFile('toronto');
   t.equal(doc.sections().length, 34, 'init section count');
 
   //start with history

@@ -2,7 +2,7 @@ const test = require('tape');
 const readFile = require('./lib/_cachedPage');
 
 test('royal_cinema options', t => {
-  let doc = readFile('royal_cinema');
+  const doc = readFile('royal_cinema');
   t.equal(doc.images().length, 1, 'image-length');
   t.equal(doc.categories().length, 4, 'category-length');
   t.equal(doc.citations().length, 4, 'citations-length');
@@ -34,7 +34,7 @@ test('other-pages', t => {
     'al_Haytham'
   ];
   pages.forEach(page => {
-    let doc = readFile(page);
+    const doc = readFile(page);
     t.notEqual(doc.categories().length, 0, page + '-category-length');
     t.notEqual(doc.citations().length, 0, page + '-citations-length');
   });
@@ -52,7 +52,7 @@ test('turn all options off', t => {
     infoboxes: false,
     pageID: false
   };
-  let doc = readFile('United-Kingdom');
+  const doc = readFile('United-Kingdom');
   let out = JSON.stringify(doc.json(options));
   t.equal(out, '{}', 'json empty');
 

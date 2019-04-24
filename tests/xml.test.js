@@ -32,7 +32,7 @@ lkjsdf
 <references>
 </references>
 `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.sections().length, 4, 'got all sections');
   t.end();
 });

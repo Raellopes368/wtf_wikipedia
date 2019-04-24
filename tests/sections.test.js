@@ -20,7 +20,7 @@ i believe that 5===true and y===false
 test('catch indented first sentence', function(t) {
   let str = `:hello one
 ok now you start`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.text(), 'ok now you start');
   t.end();
 });

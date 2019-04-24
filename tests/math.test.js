@@ -29,14 +29,14 @@ test('math-simple', t => {
 });
 
 test('math-weirder', t => {
-  let str = `<math>
+  const str = `<math>
   f(x) =
   egin{cases}
   1 & -1 le x < 0rac{1}{2} & x = 0 1 - x^2 & 	ext{otherwise}
   end{cases}
   </math>`;
-  let doc = wtf(str);
-  let tmpl = doc.templates(0) || {};
+  const doc = wtf(str);
+  const tmpl = doc.templates(0) || {};
   t.ok(tmpl.formula.length > 10, 'tmpl formula');
   t.equal(doc.text(), '', 'no text output');
   t.end();

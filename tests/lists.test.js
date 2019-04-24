@@ -2,7 +2,7 @@ const test = require('tape');
 const wtf = require('./lib');
 
 test('list-templates', function(t) {
-  let arr = [
+  const arr = [
     [`pagelist`, `{{Pagelist|X1|X2|X3|X4|X5}}`],
     [`catlist`, `{{Catlist|1989|1990|1991|1992|1993}}`],
     [`br`, `{{br separated entries|entry1|entry2| }}`],
@@ -31,8 +31,8 @@ test('list-templates', function(t) {
     ]
   ];
   arr.forEach(a => {
-    let doc = wtf(a[1]);
-    let len = doc.templates().length;
+    const doc = wtf(a[1]);
+    const len = doc.templates().length;
     t.equal(len, 0, a[0] + ' count');
     t.notEqual(doc.text(), '', a[0] + ' text exists');
     t.notEqual(doc.text(), a[1], a[0] + ' text changed');
@@ -79,7 +79,7 @@ test('collapsible list', function(t) {
 
 test('unbulleted list', function(t) {
   let str = `{{unbulleted list|first item|second item|third item|}}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let tmpl = doc.templates(0) || {};
   t.equal(tmpl.title, undefined, 'got title 3');
   t.equal(tmpl.list.length, 3, 'got list3');
@@ -90,7 +90,7 @@ test('unbulleted list', function(t) {
 
 test('ordered list', function(t) {
   let str = `{{Ordered list|first item|second item|third item|}}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let tmpl = doc.templates(0) || {};
   t.equal(tmpl.title, undefined, 'got title 4');
   t.equal(tmpl.list.length, 3, 'got list4');

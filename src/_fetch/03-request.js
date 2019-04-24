@@ -1,7 +1,7 @@
 const fetch = require('cross-fetch');
 
 const request = function(url, options) {
-  let params = {
+  const params = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ File:Anders Zorn - Ateljéidyll.jpg|G''Studio Idyll'', 1918
 
 The paintings have the freedom and energy of  sketches, using warm and cool light and shade areas<ref name="safran-arts.com"/> with contrasting areas of warm and cool tones, and an understanding of colour contrasts and reflected lights. Zorn's accomplished use of the brush allows the forms and the texture of the painted subject to reflect and transmit light. In addition to portraits and nudes, Zorn excelled in realistic depictions of water, as well as scenes depicting rustic life and customs.
   `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.deepEqual(doc.sections('paintings').templates('gallery').length, 1, 'section-has-gallery');
   let templ = doc.templates(0);
   t.deepEqual(templ.template, 'gallery', 'document-has-template');
@@ -29,7 +29,7 @@ The paintings have the freedom and energy of  sketches, using warm and cool ligh
 });
 
 test('gallery-tag-2', t => {
-  let doc = wtf(`hello
+  const doc = wtf(`hello
 
   <gallery>
    Culex-female.jpg|Stechmücke
@@ -64,7 +64,7 @@ test('gallery-template', t => {
 });
 
 test('from-infobox', t => {
-  let doc = readFile('jodie_emery');
+  const doc = readFile('jodie_emery');
   t.equal(
     doc
       .infobox(0)

@@ -2,7 +2,7 @@ const test = require('tape');
 const readFile = require('./lib/_cachedPage');
 
 test('royal_cinema page', t => {
-  let doc = readFile('royal_cinema');
+  const doc = readFile('royal_cinema');
   t.equal(doc.infoboxes(0).template(), 'venue', 'venue template');
   t.equal(doc.sections(0).sentences().length, 10, 'sentence-length');
   t.equal(doc.categories().length, 4, 'cat-length');
@@ -20,7 +20,7 @@ test('royal_cinema page', t => {
 });
 
 test('toronto_star page', t => {
-  let doc = readFile('toronto_star');
+  const doc = readFile('toronto_star');
   t.equal(doc.infoboxes(0).data.publisher.text(), 'John D. Cruickshank', 'publisher.text');
   t.equal(doc.infoboxes(0).template(), 'newspaper', 'newspaper template');
   let section = doc.sections('history');
@@ -31,7 +31,7 @@ test('toronto_star page', t => {
 });
 
 test('toronto_star with list', t => {
-  let doc = readFile('toronto_star');
+  const doc = readFile('toronto_star');
   t.equal(doc.isRedirect(), false, 'not-redirect');
   t.equal(doc.isDisambig(), false, 'not-disambig');
   t.equal(doc.infoboxes(0).data.publisher.text(), 'John D. Cruickshank', 'publisher.text');
@@ -45,7 +45,7 @@ test('toronto_star with list', t => {
 });
 
 test('jodie_emery', t => {
-  let doc = readFile('jodie_emery');
+  const doc = readFile('jodie_emery');
   t.equal(doc.isRedirect(), false, 'not-redirect');
   t.equal(doc.infoboxes(0).data.nationality.text(), 'Canadian', 'nationality');
   t.equal(doc.infoboxes(0).template(), 'person', 'person template');
@@ -57,7 +57,7 @@ test('jodie_emery', t => {
 });
 
 test('statoil', t => {
-  let doc = readFile('statoil');
+  const doc = readFile('statoil');
   t.equal(doc.isRedirect(), false, 'not-redirect');
   t.equal(doc.infoboxes(0).data.namn.text(), 'Statoil ASA', 'name');
   t.equal(doc.infoboxes(0).type(), 'verksemd', 'template');
@@ -74,7 +74,7 @@ test('statoil', t => {
 });
 
 test('raith rovers', t => {
-  let doc = readFile('raith_rovers');
+  const doc = readFile('raith_rovers');
   t.equal(doc.isRedirect(), false, 'not-redirect');
   t.equal(doc.infoboxes(0).data.clubname.text(), 'Raith Rovers', 'clubname');
   t.equal(doc.categories().length, 10, 'cat-length');
@@ -89,7 +89,7 @@ test('raith rovers', t => {
 });
 
 test('mark behr', t => {
-  let doc = readFile('Mark-Behr');
+  const doc = readFile('Mark-Behr');
   t.equal(doc.isRedirect(), false, 'not-redirect');
   t.equal(doc.infoboxes().length, 1, 'got infobox');
   t.equal(doc.categories().length, 3, 'cat-length');

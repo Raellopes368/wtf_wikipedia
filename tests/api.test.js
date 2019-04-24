@@ -24,7 +24,7 @@ const pages = [
 
 test('Document-methods-do-not-throw', t => {
   pages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     docs.Document.forEach(obj => {
       let desc = obj.name + ' - ' + page;
       doc[obj.name]();
@@ -36,7 +36,7 @@ test('Document-methods-do-not-throw', t => {
 
 test('Section-methods-do-not-throw', t => {
   pages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sec = doc.sections(0);
     docs.Section.forEach(obj => {
       let desc = obj.name + ' - ' + page;
@@ -49,7 +49,7 @@ test('Section-methods-do-not-throw', t => {
 
 test('Sentence-methods-do-not-throw', t => {
   pages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sen = doc.sentences(0);
     docs.Sentence.forEach(obj => {
       let desc = obj.name + ' - ' + page;
@@ -62,7 +62,7 @@ test('Sentence-methods-do-not-throw', t => {
 
 test('Reference-methods-do-not-throw', t => {
   pages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sen = doc.references(0);
     docs.Reference.forEach(obj => {
       let desc = obj.name + ' - ' + page;
@@ -75,7 +75,7 @@ test('Reference-methods-do-not-throw', t => {
 
 test('Image-methods-do-not-throw', t => {
   pages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sen = doc.images(0);
     docs.Image.forEach(obj => {
       let desc = obj.name + ' - ' + page;
@@ -98,7 +98,7 @@ test('Infobox-methods-do-not-throw', t => {
     'Irina-Saratovtseva'
   ];
   mypages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sen = doc.infoboxes(0);
     docs.Infobox.forEach(obj => {
       let desc = obj.name + ' - ' + page;
@@ -119,7 +119,7 @@ test('List-methods-do-not-throw', t => {
     'Allen-R.-Morris'
   ];
   mypages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sen = doc.lists(0);
     docs.List.forEach(obj => {
       let desc = obj.name + ' - ' + page;
@@ -133,7 +133,7 @@ test('List-methods-do-not-throw', t => {
 test('Table-methods-do-not-throw', t => {
   let mypages = ['Mozilla-Firefox', 'toronto', 'Allen-R.-Morris', 'bluejays'];
   mypages.forEach(page => {
-    let doc = wtf(readFile(page));
+    const doc = wtf(readFile(page));
     let sen = doc.tables(0);
     docs.Table.forEach(obj => {
       let desc = obj.name + ' - ' + page;

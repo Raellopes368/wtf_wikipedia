@@ -2,7 +2,7 @@ const wtf = require('./lib');
 const test = require('tape');
 
 test('external-links', function(t) {
-  let arr = [
+  const arr = [
     [`imdb title`, `{{IMDb title | id= 0426883 | title= Alpha Dog }}`],
     [`imdb name`, `{{IMDb name | 0000008 | Marlon Brando }}`],
     [
@@ -29,16 +29,16 @@ test('external-links', function(t) {
     ['unreferenced section', `{{Unreferenced section|date=November 2018}}`]
   ];
   arr.forEach(a => {
-    let doc = wtf(a[1]);
+    const doc = wtf(a[1]);
     t.equal(doc.templates().length, 1, a[0] + ' count');
-    let tmpl = doc.templates(0) || {};
+    const tmpl = doc.templates(0) || {};
     t.equal(tmpl.template, a[0], a[1] + ' name');
   });
   t.end();
 });
 
 test('wikipedia-templates', function(t) {
-  let arr = [
+  const arr = [
     [`uss`, `{{USS|Constellation|1797}}`],
     [`italic title`, `{{italic title}}`],
     [`audio`, `{{Audio|en-us-Alabama.ogg|pronunciation of "Alabama"|help=no}}`],
@@ -121,9 +121,9 @@ test('wikipedia-templates', function(t) {
     // [``, ``],
   ];
   arr.forEach(a => {
-    let doc = wtf(a[1]);
+    const doc = wtf(a[1]);
     t.equal(doc.templates().length, 1, a[0] + ' count');
-    let tmpl = doc.templates(0) || {};
+    const tmpl = doc.templates(0) || {};
     t.equal(tmpl.template, a[0], a[0] + ' name');
   });
   t.end();
@@ -166,7 +166,7 @@ test('weather', function(t) {
 });
 
 test('election', function(t) {
-  let str = `hello {{Election box begin |title=[[United Kingdom general election, 2005|General Election 2005]]: Strangford}}
+  const str = `hello {{Election box begin |title=[[United Kingdom general election, 2005|General Election 2005]]: Strangford}}
    {{Election box candidate
      |party      = Labour
      |candidate  = Tony Blair
@@ -188,9 +188,9 @@ test('election', function(t) {
   }}
    {{Election box end}}
    world`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.templates().length, 1, 'found one template');
-  let tmpl = doc.templates(0) || {};
+  const tmpl = doc.templates(0) || {};
   t.equal(tmpl.template, 'election box', 'template name');
   t.equal(tmpl.candidates.length, 2, 'two candidates');
   t.end();
@@ -215,7 +215,7 @@ test('test-flexible-format', function(t) {
 });
 
 test('playoff-brackets', function(t) {
-  let str = `{{4TeamBracket
+  const str = `{{4TeamBracket
   | RD2         = Final
 
   | seed-width  =
@@ -243,10 +243,11 @@ test('playoff-brackets', function(t) {
   | RD2-team2   = '''{{cr|WIN}}'''
   | RD2-score2  = '''218/8 (48.5 overs)'''
   }}`;
-  let doc = wtf(str);
-  let rounds = doc.templates(0).rounds;
+  const doc = wtf(str);
+  const rounds = doc.templates(0).rounds;
   t.equal(rounds.length, 2, 'two rounds');
-  let final = rounds[1][0];
+
+  const final = rounds[1][0];
   t.equal(final[0].score, '217 (49.4 overs)', 'got score');
   t.end();
 });

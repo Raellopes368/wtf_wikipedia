@@ -28,7 +28,7 @@ test('arenas table', t => {
 | <ref>{{cite web|first=Allan|last=Muir|title=Seven Wonders of the Hockey World: Places a fan must visit|url=https://www.si.com/nhl/2015/08/21/seven-wonders-hockey-world-places|website=SI.com|date=August 21, 2015|accessdate=August 7, 2018}}</ref>
 |-
 |}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let rows = doc.tables(0).keyValue();
   rows = rows.filter(r => r.Arena);
   t.equal(rows.length, 2, 'two rows');
@@ -61,7 +61,7 @@ test('double-header baseball game', t => {
 |-style=background:#fcc
 |147||September 14||@ [[2018 Philadelphia Phillies season|Phillies]] || 2–14 || [[Zach Eflin|Eflin]] (10–7) || '''[[Wei-Yin Chen|Chen]]''' (6–11) || — || 21,671 || 57–90 || L4
 |}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let rows = doc.tables(0).keyValue();
   t.equal(rows.length, 4, 'all rows');
   t.equal(rows[0].Attendance, '20,423', '1');

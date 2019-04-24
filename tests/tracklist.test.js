@@ -33,7 +33,7 @@ test('track-listing', t => {
 | title8          = [[Happiness Is a Warm Gun]]
 | length8         = 2:43
 }}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let track = doc.templates(0);
   t.equal(track.headline, 'Side one', 'track-headline');
   t.equal(track.title4, 'Ob-La-Di, Ob-La-Da', 'title4');
@@ -69,7 +69,7 @@ test('track-listing', t => {
 | extra6          = Simha, [[Geetha Madhuri]]
 | length6         = 4:41
 }}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let track = doc.templates('tracklist')[0];
   t.equal(track.total_length, '23:14', 'track-total_length');
   t.end();

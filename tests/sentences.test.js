@@ -13,7 +13,7 @@ test('tough sentence punctuation', function(t) {
     // `he is credited as (''[[Mr. Lawrence]]'') and sometimes Doug Lawrence.`,
   ];
   arr.forEach((str, i) => {
-    let doc = wtf(str);
+    const doc = wtf(str);
     t.equal(
       doc.sentences(0).text(),
       'he is credited as Mr. Lawrence and sometimes Doug Lawrence.',

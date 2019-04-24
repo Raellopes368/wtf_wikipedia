@@ -13,7 +13,7 @@ test('bluejays table', t => {
 });
 
 test('rnli stations', t => {
-  let doc = readFile('rnli_stations');
+  const doc = readFile('rnli_stations');
   t.equal(doc.categories().length, 5, 'cat-length');
 
   let intro = doc.sections(0);
@@ -261,7 +261,7 @@ test('embedded-table-2', t => {
   |}
 
   Actual first sentence is here`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.tables().length, 2, 'found both tables');
   let text = doc.sentences(0).text();
   t.equal('Actual first sentence is here', text, 'got proper first sentence');
@@ -280,7 +280,7 @@ test('sortable table', t => {
   |-
   !Average:||1.82
   |}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let row = doc.tables(0).data[0];
   t.equal(row.Height.text(), '1.85', 'got height');
   t.equal(row['Name and Surname'].text(), 'John Smith', 'got name');
@@ -329,7 +329,7 @@ test('table newline removal', t => {
 | [[Rēzne]]
 |}
 `;
-  let doc = wtf(str);
+  const doc = wtf(str);
   t.equal(doc.text(), 'hello this is the top', 'text on top');
   t.end();
 });
@@ -343,7 +343,7 @@ test('table rowspan', t => {
 | two B
 | three B
 |}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let table = doc.tables(0).keyValue();
   t.equal(table[0].col1, 'one', 'has init');
   t.equal(table[1].col1, 'one', 'has copy');
@@ -363,7 +363,7 @@ test('table colspan', t => {
 | two B
 | three B
 |}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let table = doc.tables(0).keyValue();
   t.equal(table[0].col1, 'one/two', 'has init');
   t.equal(table[0].col2, '', 'has empty span');
@@ -502,7 +502,7 @@ test('table newlines', t => {
 || cc
 || ccc
 |}`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   let data = doc.tables(0).keyValue();
   t.equal(data[0].h1, 'a', 'h1');
   t.equal(data[0].h2, 'aa', 'h2');

@@ -37,7 +37,7 @@ test('anchor-links', t => {
   t.equal(link.anchor, 'Personal Life', 'anchor1');
 
   str = `[[Toronto_Blue_Jays#Problems|Tranno J birds]]`;
-  let doc = wtf(str);
+  const doc = wtf(str);
   link = doc.links(0);
   t.equal(link.page, 'Toronto_Blue_Jays', 'page2');
   t.equal(link.text, 'Tranno J birds', 'text2');

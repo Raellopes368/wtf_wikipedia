@@ -42,7 +42,7 @@ test('json-output-options', t => {
 });
 
 test('section-output', t => {
-  let doc = readFile('royal_cinema');
+  const doc = readFile('royal_cinema');
   let data = doc.section(0).json({
     links: false,
     formatting: false,
@@ -56,7 +56,7 @@ test('section-output', t => {
 });
 
 test('sentence-output', t => {
-  let doc = readFile('royal_cinema');
+  const doc = readFile('royal_cinema');
   let sen = doc.sentences(0);
   let data = sen.json();
   t.ok(data.text, 'text');
