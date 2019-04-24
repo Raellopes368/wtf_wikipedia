@@ -37,7 +37,7 @@ const templates = {
 // - other languages -
 // Polish, {{IPAc-pl}}	{{IPAc-pl|'|sz|cz|e|ć|i|n}} → [ˈʂt͡ʂɛt͡ɕin]
 // Portuguese, {{IPAc-pt}}	{{IPAc-pt|p|o|<|r|t|u|'|g|a|l|lang=pt}} and {{IPAc-pt|b|r|a|'|s|i|l|lang=br}} → [puɾtuˈɣaɫ] and [bɾaˈsiw]
-Object.keys(languages).forEach((lang) => {
+Object.keys(languages).forEach(lang => {
   templates['ipa-' + lang] = templates.ipa;
   templates['ipac-' + lang] = templates.ipac;
 });

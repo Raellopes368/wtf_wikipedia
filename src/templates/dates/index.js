@@ -55,11 +55,11 @@ let dateTmpl = Object.assign({}, misc, {
     return months[d.getMonth()] + ' ' + d.getFullYear();
   },
   //Explictly-set dates - https://en.wikipedia.org/wiki/Template:Date
-  date: (tmpl) => {
+  date: tmpl => {
     let order = ['date', 'fmt'];
     return parse(tmpl, order).date;
   },
-  'time ago': (tmpl) => {
+  'time ago': tmpl => {
     let order = ['date', 'fmt'];
     let time = parse(tmpl, order).date;
     return timeSince(time);
@@ -137,7 +137,7 @@ let dateTmpl = Object.assign({}, misc, {
     return str;
   },
   //sortable dates -
-  dts: (tmpl) => {
+  dts: tmpl => {
     //remove formatting stuff, ewww
     tmpl = tmpl.replace(/\|format=[ymd]+/i, '');
     tmpl = tmpl.replace(/\|abbr=(on|off)/i, '');
@@ -162,10 +162,10 @@ let dateTmpl = Object.assign({}, misc, {
     return '';
   },
   //date/age/time templates
-  'start': date,
-  'end': date,
-  'birth': date,
-  'death': date,
+  start: date,
+  end: date,
+  birth: date,
+  death: date,
   'start date': date,
   'end date': date,
   'birth date': date,
@@ -182,20 +182,19 @@ let dateTmpl = Object.assign({}, misc, {
   'death-date and age': natural_date,
   'death-date and given age': natural_date,
 
-  'birthdeathage': parsers.two_dates,
-  'dob': date,
+  birthdeathage: parsers.two_dates,
+  dob: date,
   // 'birth date and age2': date,
 
-  'age': parsers.age,
+  age: parsers.age,
   'age nts': parsers.age,
   'age in years': parsers['diff-y'],
   'age in years and months': parsers['diff-ym'],
   'age in years, months and days': parsers['diff-ymd'],
   'age in years and days': parsers['diff-yd'],
-  'age in days': parsers['diff-d'],
+  'age in days': parsers['diff-d']
   // 'age in years, months, weeks and days': true,
   // 'age as of date': true,
-
 });
 //aliases
 dateTmpl.localday = dateTmpl.currentday;

@@ -31,7 +31,6 @@ const getBoth = function(tmpl) {
 };
 
 const parsers = {
-
   //generic {{date|year|month|date}} template
   date: (tmpl, r) => {
     let order = ['year', 'month', 'date', 'hour', 'minute', 'second', 'timezone'];
@@ -86,15 +85,25 @@ const parsers = {
     let order = ['year'];
     let obj = parse(tmpl, order);
     let year = Number(obj.year);
-    r.templates.push(template({
-      year: year
-    }));
+    r.templates.push(
+      template({
+        year: year
+      })
+    );
     return String(year);
   },
 
   //assume 'y|m|d' | 'y|m|d' // {{BirthDeathAge|B|1976|6|6|1990|8|8}}
   two_dates: (tmpl, r) => {
-    let order = ['b', 'birth_year', 'birth_month', 'birth_date', 'death_year', 'death_month', 'death_date'];
+    let order = [
+      'b',
+      'birth_year',
+      'birth_month',
+      'birth_date',
+      'death_year',
+      'death_month',
+      'death_date'
+    ];
     let obj = parse(tmpl, order);
     //'b' means show birth-date, otherwise show death-date
     if (obj.b && obj.b.toLowerCase() === 'b') {
@@ -107,13 +116,13 @@ const parsers = {
     return toText(date);
   },
 
-  'age': (tmpl) => {
+  age: tmpl => {
     let d = getBoth(tmpl);
     let diff = delta(d.from, d.to);
     return diff.years || 0;
   },
 
-  'diff-y': (tmpl) => {
+  'diff-y': tmpl => {
     let d = getBoth(tmpl);
     let diff = delta(d.from, d.to);
     if (diff.years === 1) {
@@ -121,7 +130,7 @@ const parsers = {
     }
     return (diff.years || 0) + ' years';
   },
-  'diff-ym': (tmpl) => {
+  'diff-ym': tmpl => {
     let d = getBoth(tmpl);
     let diff = delta(d.from, d.to);
     let arr = [];
@@ -137,7 +146,7 @@ const parsers = {
     }
     return arr.join(', ');
   },
-  'diff-ymd': (tmpl) => {
+  'diff-ymd': tmpl => {
     let d = getBoth(tmpl);
     let diff = delta(d.from, d.to);
     let arr = [];
@@ -158,7 +167,7 @@ const parsers = {
     }
     return arr.join(', ');
   },
-  'diff-yd': (tmpl) => {
+  'diff-yd': tmpl => {
     let d = getBoth(tmpl);
     let diff = delta(d.from, d.to);
     let arr = [];
@@ -176,7 +185,7 @@ const parsers = {
     }
     return arr.join(', ');
   },
-  'diff-d': (tmpl) => {
+  'diff-d': tmpl => {
     let d = getBoth(tmpl);
     let diff = delta(d.from, d.to);
     let arr = [];
@@ -189,7 +198,6 @@ const parsers = {
       arr.push(diff.days + ' days');
     }
     return arr.join(', ');
-  },
-
+  }
 };
 module.exports = parsers;

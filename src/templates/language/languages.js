@@ -2,25 +2,24 @@ const languages = require('../../_data/languages');
 const parse = require('../_parsers/parse');
 
 const templates = {
-
-  lang: (tmpl) => {
+  lang: tmpl => {
     let order = ['lang', 'text'];
     let obj = parse(tmpl, order);
     return obj.text;
   },
   //this one has a million variants
-  'lang-de': (tmpl) => {
+  'lang-de': tmpl => {
     let order = ['text'];
     let obj = parse(tmpl, order);
     return obj.text;
   },
-  'rtl-lang': (tmpl) => {
+  'rtl-lang': tmpl => {
     let order = ['lang', 'text'];
     let obj = parse(tmpl, order);
     return obj.text;
   },
   //german keyboard letterscn
-  taste: (tmpl) => {
+  taste: tmpl => {
     let obj = parse(tmpl, ['key']);
     return obj.key || '';
   },
@@ -36,7 +35,7 @@ const templates = {
   }
 };
 //https://en.wikipedia.org/wiki/Category:Lang-x_templates
-Object.keys(languages).forEach((k) => {
+Object.keys(languages).forEach(k => {
   templates['lang-' + k] = templates['lang-de'];
 });
 templates['nihongo2'] = templates.nihongo;

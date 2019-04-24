@@ -1,4 +1,3 @@
-
 //not all too fancy - used in {{timesince}}
 const timeSince = function(str) {
   let d = new Date(str);

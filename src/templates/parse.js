@@ -3,7 +3,8 @@ const getName = require('./_parsers/_getName');
 const parse = require('./_parsers/parse');
 const inf = require('./_infobox');
 
-const templates = Object.assign({},
+const templates = Object.assign(
+  {},
   require('./wikipedia'),
   require('./identities'),
   require('./dates'),

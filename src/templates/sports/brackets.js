@@ -20,7 +20,7 @@ const parseTeam = function(obj, round, team) {
   return {
     team: obj[`rd${round}-team${team}`],
     score: score,
-    seed: obj[`rd${round}-seed${team}`],
+    seed: obj[`rd${round}-seed${team}`]
   };
 };
 
@@ -29,9 +29,9 @@ const playoffBracket = function(tmpl) {
   let rounds = [];
   let obj = parse(tmpl);
   //try some rounds
-  for(let i = 1; i < 7; i += 1) {
+  for (let i = 1; i < 7; i += 1) {
     let round = [];
-    for(let t = 1; t < 16; t += 2) {
+    for (let t = 1; t < 16; t += 2) {
       let key = `rd${i}-team`;
       if (obj[key + t] || obj[key + zeroPad(t)]) {
         let one = parseTeam(obj, i, t);
@@ -57,7 +57,7 @@ let all = {
     let obj = playoffBracket(tmpl);
     r.templates.push(obj);
     return '';
-  },
+  }
 };
 
 //a bunch of aliases for these ones:
@@ -92,9 +92,9 @@ const brackets = [
   '16teambracket-swtc',
   '16teambracket-afc',
   '16teambracket-tennis3',
-  '16teambracket-tennis5',
+  '16teambracket-tennis5'
 ];
-brackets.forEach((key) => {
+brackets.forEach(key => {
   all[key] = all['4teambracket'];
 });
 

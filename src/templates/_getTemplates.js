@@ -7,7 +7,11 @@ const findFlat = function(wiki) {
   let depth = 0;
   let list = [];
   let carry = [];
-  for (var i = wiki.indexOf(open); i !== -1 && i < wiki.length; depth > 0 ? i++ : (i = wiki.indexOf(open, i + 1))) {
+  for (
+    let i = wiki.indexOf(open);
+    i !== -1 && i < wiki.length;
+    depth > 0 ? i++ : (i = wiki.indexOf(open, i + 1)) //huh?
+  ) {
     let c = wiki[i];
     //open it
     if (c === open) {
@@ -43,10 +47,10 @@ const findFlat = function(wiki) {
 //get all nested templates
 const findNested = function(top) {
   let deep = [];
-  top.forEach((str) => {
+  top.forEach(str => {
     if (/\{\{/.test(str.substr(2)) === true) {
       str = strip(str);
-      findFlat(str).forEach((o) => {
+      findFlat(str).forEach(o => {
         if (o) {
           deep.push(o);
         }

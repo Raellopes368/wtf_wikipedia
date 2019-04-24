@@ -6,7 +6,7 @@ const hasKey = /^[a-z0-9\u00C0-\u00FF\._\- ]+=/iu;
 const reserved = {
   template: true,
   list: true,
-  prototype: true,
+  prototype: true
 };
 
 //turn 'key=val' into {key:key, val:val}

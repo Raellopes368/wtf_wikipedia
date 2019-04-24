@@ -16,22 +16,20 @@ const percentage = function(obj) {
   return Number(perc);
 };
 
-
 let templates = {
-
   // https://en.wikipedia.org/wiki/Template:Math
-  'math': (tmpl, r) => {
+  math: (tmpl, r) => {
     let obj = parse(tmpl, ['formula']);
     r.templates.push(obj);
     return '\n\n' + (obj.formula || '') + '\n\n';
   },
 
   //fraction - https://en.wikipedia.org/wiki/Template:Sfrac
-  'frac': (tmpl, r) => {
+  frac: (tmpl, r) => {
     let order = ['a', 'b', 'c'];
     let obj = parse(tmpl, order);
     let data = {
-      template: 'sfrac',
+      template: 'sfrac'
     };
     if (obj.c) {
       data.integer = obj.a;
@@ -51,13 +49,13 @@ let templates = {
     return `${data.numerator}⁄${data.denominator}`;
   },
   //https://en.wikipedia.org/wiki/Template:Radic
-  'radic': (tmpl) => {
+  radic: tmpl => {
     let order = ['after', 'before'];
     let obj = parse(tmpl, order);
     return `${obj.before || ''}√${obj.after || ''}`;
   },
   //{{percentage | numerator | denominator | decimals to round to (zero or greater) }}
-  percentage: ( tmpl = '' ) => {
+  percentage: (tmpl = '') => {
     let obj = parse(tmpl, ['numerator', 'denominator', 'decimals']);
     let num = percentage(obj);
     if (num === null) {
@@ -66,7 +64,7 @@ let templates = {
     return num + '%';
   },
   // {{Percent-done|done=N|total=N|digits=N}}
-  'percent-done': ( tmpl = '' ) => {
+  'percent-done': (tmpl = '') => {
     let obj = parse(tmpl, ['done', 'total', 'digits']);
     let num = percentage({
       numerator: obj.done,
@@ -78,7 +76,7 @@ let templates = {
     }
     return `${obj.done} (${num}%) done`;
   },
-  'winning percentage': ( tmpl = '' , r ) => {
+  'winning percentage': (tmpl = '', r) => {
     let obj = parse(tmpl, ['wins', 'losses', 'ties']);
     r.templates.push(obj);
     let wins = Number(obj.wins);
@@ -89,7 +87,7 @@ let templates = {
       ties = 0;
     }
     if (ties) {
-      wins += (ties / 2);
+      wins += ties / 2;
     }
     let num = percentage({
       numerator: wins,
@@ -101,7 +99,7 @@ let templates = {
     }
     return `.${num * 10}`;
   },
-  'winlosspct': ( tmpl = '' , r ) => {
+  winlosspct: (tmpl = '', r) => {
     let obj = parse(tmpl, ['wins', 'losses']);
     r.templates.push(obj);
     let wins = Number(obj.wins);
@@ -116,7 +114,7 @@ let templates = {
     }
     num = `.${num * 10}`;
     return `${wins || 0} || ${losses || 0} || ${num || '-'}`;
-  },
+  }
 };
 //aliases
 templates['sfrac'] = templates.frac;

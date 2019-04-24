@@ -14,7 +14,6 @@ const idName = (tmpl, r) => {
 
 //https://en.wikipedia.org/wiki/Category:External_link_templates
 const externals = {
-
   //https://en.wikipedia.org/wiki/Template:IMDb_title
   'imdb title': generic,
   'imdb name': generic,
@@ -22,7 +21,7 @@ const externals = {
   'imdb event': generic,
   'afi film': generic,
   'allmovie title': generic,
-  'allgame': generic,
+  allgame: generic,
   'tcmdb title': generic,
   'discogs artist': generic,
   'discogs label': generic,
@@ -34,24 +33,24 @@ const externals = {
   'musicbrainz recording': generic,
   'musicbrainz release': generic,
   'musicbrainz work': generic,
-  'youtube': generic,
+  youtube: generic,
   'goodreads author': idName,
   'goodreads book': generic,
-  'twitter': idName,
-  'facebook': idName,
-  'instagram': idName,
-  'tumblr': idName,
-  'pinterest': idName,
+  twitter: idName,
+  facebook: idName,
+  instagram: idName,
+  tumblr: idName,
+  pinterest: idName,
   'espn nfl': idName,
   'espn nhl': idName,
   'espn fc': idName,
-  'hockeydb': idName,
+  hockeydb: idName,
   'fifa player': idName,
-  'worldcat': idName,
+  worldcat: idName,
   'worldcat id': idName,
   'nfl player': idName,
   'ted speaker': idName,
-  'playmate': idName,
+  playmate: idName,
   //https://en.wikipedia.org/wiki/Template:DMOZ
   dmoz: generic,
 
@@ -61,7 +60,7 @@ const externals = {
     r.templates.push(obj);
     return '';
   },
-  'congbio': (tmpl, r) => {
+  congbio: (tmpl, r) => {
     let order = ['id', 'name', 'date'];
     let obj = parse(tmpl, order);
     r.templates.push(obj);
@@ -72,7 +71,7 @@ const externals = {
     let obj = parse(tmpl, order);
     r.templates.push(obj);
     return '';
-  },
+  }
 };
 //alias
 externals.imdb = externals['imdb name'];

@@ -17,19 +17,19 @@ const delta = function(from, to) {
   let years = Math.floor(diff / year, 10);
   if (years > 0) {
     obj.years = years;
-    diff -= (obj.years * year);
+    diff -= obj.years * year;
   }
   //get months
   let months = Math.floor(diff / month, 10);
   if (months > 0) {
     obj.months = months;
-    diff -= (obj.months * month);
+    diff -= obj.months * month;
   }
   //get days
   let days = Math.floor(diff / day, 10);
   if (days > 0) {
     obj.days = days;
-  // diff -= (obj.days * day);
+    // diff -= (obj.days * day);
   }
   return obj;
 };

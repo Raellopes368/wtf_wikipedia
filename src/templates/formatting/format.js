@@ -2,12 +2,12 @@ const parse = require('../_parsers/parse');
 
 let templates = {
   //a convulated way to make a xml tag - https://en.wikipedia.org/wiki/Template:Tag
-  tag: (tmpl) => {
+  tag: tmpl => {
     let obj = parse(tmpl, ['tag', 'open']);
     const ignore = {
       span: true,
       div: true,
-      p: true,
+      p: true
     };
     //pair, empty, close, single
     if (!obj.open || obj.open === 'pair') {
@@ -20,7 +20,7 @@ let templates = {
     return '';
   },
   //dumb inflector - https://en.wikipedia.org/wiki/Template:Plural
-  plural: (tmpl) => {
+  plural: tmpl => {
     tmpl = tmpl.replace(/plural:/, 'plural|');
     let order = ['num', 'word'];
     let obj = parse(tmpl, order);
@@ -36,7 +36,7 @@ let templates = {
     return num + ' ' + word;
   },
   // https://en.wikipedia.org/wiki/Template:First_word
-  'first word': (tmpl) => {
+  'first word': tmpl => {
     let obj = parse(tmpl, ['text']);
     let str = obj.text;
     if (obj.sep) {
@@ -44,12 +44,12 @@ let templates = {
     }
     return str.split(' ')[0];
   },
-  'trunc': (tmpl) => {
+  trunc: tmpl => {
     let order = ['str', 'len'];
     let obj = parse(tmpl, order);
     return obj.str.substr(0, obj.len);
   },
-  'str mid': (tmpl) => {
+  'str mid': tmpl => {
     let order = ['str', 'start', 'end'];
     let obj = parse(tmpl, order);
     let start = parseInt(obj.start, 10) - 1;
@@ -57,20 +57,20 @@ let templates = {
     return obj.str.substr(start, end);
   },
   //grab the first, second or third pipe
-  'p1': (tmpl) => {
+  p1: tmpl => {
     let order = ['one'];
     return parse(tmpl, order).one;
   },
-  'p2': (tmpl) => {
+  p2: tmpl => {
     let order = ['one', 'two'];
     return parse(tmpl, order).two;
   },
-  'p3': (tmpl) => {
+  p3: tmpl => {
     let order = ['one', 'two', 'three'];
     return parse(tmpl, order).three;
   },
   //formatting things - https://en.wikipedia.org/wiki/Template:Nobold
-  braces: (tmpl) => {
+  braces: tmpl => {
     let obj = parse(tmpl, ['text']);
     let attrs = '';
     if (obj.list) {
@@ -78,13 +78,13 @@ let templates = {
     }
     return '{{' + (obj.text || '') + attrs + '}}';
   },
-  nobold: (tmpl) => {
+  nobold: tmpl => {
     return parse(tmpl, ['text']).text || '';
   },
-  noitalic: (tmpl) => {
+  noitalic: tmpl => {
     return parse(tmpl, ['text']).text || '';
   },
-  nocaps: (tmpl) => {
+  nocaps: tmpl => {
     return parse(tmpl, ['text']).text || '';
   },
   syntaxhighlight: (tmpl, r) => {
@@ -98,37 +98,41 @@ let templates = {
     return obj['1'] || '';
   },
   //https://en.wikipedia.org/wiki/Template:Visible_anchor
-  vanchor: (tmpl) => {
+  vanchor: tmpl => {
     return parse(tmpl, ['text']).text || '';
   },
   //https://en.wikipedia.org/wiki/Template:Resize
-  resize: (tmpl) => {
+  resize: tmpl => {
     return parse(tmpl, ['size', 'text']).text || '';
   },
   //https://en.wikipedia.org/wiki/Template:Ra
-  ra: (tmpl) => {
+  ra: tmpl => {
     let obj = parse(tmpl, ['hours', 'minutes', 'seconds']);
     return [obj.hours || 0, obj.minutes || 0, obj.seconds || 0].join(':');
   },
   //https://en.wikipedia.org/wiki/Template:Deg2HMS
-  deg2hms: (tmpl) => { //this template should do the conversion
+  deg2hms: tmpl => {
+    //this template should do the conversion
     let obj = parse(tmpl, ['degrees']);
     return (obj.degrees || '') + '°';
   },
-  hms2deg: (tmpl) => { //this template should do the conversion too
+  hms2deg: tmpl => {
+    //this template should do the conversion too
     let obj = parse(tmpl, ['hours', 'minutes', 'seconds']);
     return [obj.hours || 0, obj.minutes || 0, obj.seconds || 0].join(':');
   },
-  decdeg: (tmpl) => { //this template should do the conversion too
+  decdeg: tmpl => {
+    //this template should do the conversion too
     let obj = parse(tmpl, ['deg', 'min', 'sec', 'hem', 'rnd']);
     return (obj.deg || obj.degrees) + '°';
   },
-  rnd: (tmpl) => { //this template should do the conversion too
+  rnd: tmpl => {
+    //this template should do the conversion too
     let obj = parse(tmpl, ['decimal']);
     return obj.decimal || '';
   },
   //https://en.wikipedia.org/wiki/Template:DEC
-  dec: (tmpl) => {
+  dec: tmpl => {
     let obj = parse(tmpl, ['degrees', 'minutes', 'seconds']);
     let str = (obj.degrees || 0) + '°';
     if (obj.minutes) {
@@ -140,7 +144,7 @@ let templates = {
     return str;
   },
   //https://en.wikipedia.org/wiki/Template:Val
-  val: (tmpl) => {
+  val: tmpl => {
     let obj = parse(tmpl, ['number', 'uncertainty']);
     let str = obj.number || '';
     //prefix/suffix
@@ -201,10 +205,10 @@ let inline = [
   'var',
   'mvar',
   'pre2',
-  'code',
+  'code'
 ];
-inline.forEach((k) => {
-  templates[k] = (tmpl) => {
+inline.forEach(k => {
+  templates[k] = tmpl => {
     return parse(tmpl, ['text']).text || '';
   };
 });

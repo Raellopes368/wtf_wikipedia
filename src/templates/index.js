@@ -6,11 +6,11 @@ const isCitation = new RegExp('^(cite |citation)', 'i');
 const citations = {
   citation: true,
   refn: true,
-  harvnb: true,
+  harvnb: true
 };
 //ensure references and infoboxes at least look valid
 const isObject = function(x) {
-  return (typeof x === 'object') && (x !== null) && x.constructor.toString().indexOf('Array') === -1;
+  return typeof x === 'object' && x !== null && x.constructor.toString().indexOf('Array') === -1;
 };
 
 //reduce the scary recursive situations
@@ -36,7 +36,7 @@ const parseTemplates = function(wiki, data, options) {
   });
   //lastly, move citations + infoboxes out of our templates list
   let clean = [];
-  data.templates.forEach((o) => {
+  data.templates.forEach(o => {
     //it's possible that we've parsed a reference, that we missed earlier
     if (citations[o.template] === true || isCitation.test(o.template) === true) {
       data.references = data.references || [];

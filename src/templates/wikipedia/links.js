@@ -2,28 +2,28 @@ const parse = require('../_parsers/parse');
 
 let templates = {
   /* mostly wiktionary*/
-  etyl: (tmpl) => {
+  etyl: tmpl => {
     let order = ['lang', 'page'];
     return parse(tmpl, order).page || '';
   },
-  mention: (tmpl) => {
+  mention: tmpl => {
     let order = ['lang', 'page'];
     return parse(tmpl, order).page || '';
   },
-  link: (tmpl) => {
+  link: tmpl => {
     let order = ['lang', 'page'];
     return parse(tmpl, order).page || '';
   },
-  'la-verb-form': (tmpl) => {
+  'la-verb-form': tmpl => {
     let order = ['word'];
     return parse(tmpl, order).word || '';
   },
-  'la-ipa': (tmpl) => {
+  'la-ipa': tmpl => {
     let order = ['word'];
     return parse(tmpl, order).word || '';
   },
   //https://en.wikipedia.org/wiki/Template:Sortname
-  sortname: (tmpl) => {
+  sortname: tmpl => {
     let order = ['first', 'last', 'target', 'sort'];
     let obj = parse(tmpl, order);
     let name = `${obj.first || ''} ${obj.last || ''}`;
@@ -75,8 +75,8 @@ const links = [
 ];
 
 //keyValues
-links.forEach((k) => {
-  templates[k] = (tmpl) => {
+links.forEach(k => {
+  templates[k] = tmpl => {
     let order = ['first', 'second'];
     let obj = parse(tmpl, order);
     return obj.second || obj.first;

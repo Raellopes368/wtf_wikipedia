@@ -5,7 +5,7 @@ const parse = require('../_parsers/parse');
 const templates = {
   //{{inflection of|avoir||3|p|pres|ind|lang=fr}}
   //https://en.wiktionary.org/wiki/Template:inflection_of
-  'inflection': (tmpl, r) => {
+  inflection: (tmpl, r) => {
     let obj = parse(tmpl, ['lemma']);
     obj.tags = obj.list;
     delete obj.list;
@@ -30,11 +30,11 @@ const templates = {
     r.templates.push(obj);
     return obj.word || '';
   },
-  'rhymes': (tmpl, r) => {
+  rhymes: (tmpl, r) => {
     let obj = parse(tmpl, ['word']);
     r.templates.push(obj);
     return 'Rhymes: -' + (obj.word || '');
-  },
+  }
 };
 
 //https://en.wiktionary.org/wiki/Category:Form-of_templates
@@ -198,9 +198,9 @@ let conjugations = [
   'uncommon spelling',
   'verbal noun',
   'vocative plural',
-  'vocative singular',
+  'vocative singular'
 ];
-conjugations.forEach((name) => {
+conjugations.forEach(name => {
   templates[name + ' of'] = (tmpl, r) => {
     let obj = parse(tmpl, ['lemma']);
     obj.tags = obj.list;

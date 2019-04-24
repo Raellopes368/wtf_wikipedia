@@ -6,7 +6,7 @@ let templates = {
     let data = parse(tmpl);
     data.list = data.list || [];
     let years = [];
-    for(let i = 0; i < data.list.length; i += 2) {
+    for (let i = 0; i < data.list.length; i += 2) {
       let num = data.list[i + 1];
       years.push({
         year: data.list[i],
@@ -17,6 +17,6 @@ let templates = {
     delete data.list;
     r.templates.push(data);
     return '';
-  },
+  }
 };
 module.exports = templates;

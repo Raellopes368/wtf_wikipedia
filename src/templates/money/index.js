@@ -16,11 +16,11 @@ const codes = {
   '₱': '₱', // https://en.wikipedia.org/wiki/Template:Philippine_peso
   pkr: '₨', // https://en.wikipedia.org/wiki/Template:Pakistani_Rupee
   '€': '€', // https://en.wikipedia.org/wiki/Template:€
-  'euro': '€',
-  'nz$': 'NZ$',
-  'nok': 'kr', //https://en.wikipedia.org/wiki/Template:NOK
-  'aud': 'A$', //https://en.wikipedia.org/wiki/Template:AUD
-  'zar': 'R', //https://en.wikipedia.org/wiki/Template:ZAR
+  euro: '€',
+  nz$: 'NZ$',
+  nok: 'kr', //https://en.wikipedia.org/wiki/Template:NOK
+  aud: 'A$', //https://en.wikipedia.org/wiki/Template:AUD
+  zar: 'R' //https://en.wikipedia.org/wiki/Template:ZAR
 };
 
 const parseCurrency = (tmpl, r) => {
@@ -40,9 +40,8 @@ const currencies = {
   currency: parseCurrency
 };
 //the others fit the same pattern..
-Object.keys(codes).forEach((k) => {
+Object.keys(codes).forEach(k => {
   currencies[k] = parseCurrency;
 });
-
 
 module.exports = currencies;

@@ -1,18 +1,18 @@
 const parse = require('../_parsers/parse');
 
 const misc = {
-  'timeline': (tmpl, r) => {
+  timeline: (tmpl, r) => {
     let data = parse(tmpl);
     r.templates.push(data);
     return '';
   },
-  'uss': (tmpl, r) => {
+  uss: (tmpl, r) => {
     let order = ['ship', 'id'];
     let obj = parse(tmpl, order);
     r.templates.push(obj);
     return '';
   },
-  'isbn': (tmpl, r) => {
+  isbn: (tmpl, r) => {
     let order = ['id', 'id2', 'id3'];
     let obj = parse(tmpl, order);
     r.templates.push(obj);
@@ -47,16 +47,16 @@ const misc = {
       template: 'video game release',
       releases: []
     };
-    for(let i = 0; i < order.length; i += 2) {
+    for (let i = 0; i < order.length; i += 2) {
       if (obj[order[i]]) {
         template.releases.push({
           region: obj[order[i]],
-          date: obj[order[i + 1]],
+          date: obj[order[i + 1]]
         });
       }
     }
     r.templates.push(template);
-    let str = template.releases.map((o) => `${o.region}: ${o.date || ''}`).join('\n\n');
+    let str = template.releases.map(o => `${o.region}: ${o.date || ''}`).join('\n\n');
     return '\n' + str + '\n';
   },
   //barrels of oil https://en.wikipedia.org/wiki/Template:Bbl_to_t
@@ -67,6 +67,6 @@ const misc = {
       return obj.barrels + ' barrel';
     }
     return obj.barrels + ' barrels';
-  },
+  }
 };
 module.exports = misc;

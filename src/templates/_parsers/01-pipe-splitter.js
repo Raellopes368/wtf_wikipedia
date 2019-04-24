@@ -1,4 +1,3 @@
-
 //turn {{name|one|two|three}} into [name, one, two, three]
 const pipeSplitter = function(tmpl) {
   //start with a naiive '|' split
@@ -16,10 +15,10 @@ const pipeSplitter = function(tmpl) {
     }
   });
   //cleanup any mistakes we've made
-  arr = arr.filter((a) => a !== null);
-  arr = arr.map((a) => (a || '').trim());
+  arr = arr.filter(a => a !== null);
+  arr = arr.map(a => (a || '').trim());
   //remove empty fields, only at the end:
-  for(let i = arr.length - 1; i >= 0; i -= 1) {
+  for (let i = arr.length - 1; i >= 0; i -= 1) {
     if (arr[i] === '') {
       arr.pop();
     }

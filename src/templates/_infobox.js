@@ -12,37 +12,37 @@ const known = {
   'gnf protein box': true,
   'automatic taxobox': true,
   'chembox ': true,
-  'editnotice': true,
-  'geobox': true,
-  'hybridbox': true,
-  'ichnobox': true,
-  'infraspeciesbox': true,
-  'mycomorphbox': true,
-  'oobox': true,
+  editnotice: true,
+  geobox: true,
+  hybridbox: true,
+  ichnobox: true,
+  infraspeciesbox: true,
+  mycomorphbox: true,
+  oobox: true,
   'paraphyletic group': true,
-  'speciesbox': true,
-  'subspeciesbox': true,
+  speciesbox: true,
+  subspeciesbox: true,
   'starbox short': true,
-  'taxobox': true,
-  'nhlteamseason': true,
+  taxobox: true,
+  nhlteamseason: true,
   'asian games bid': true,
   'canadian federal election results': true,
   'dc thomson comic strip': true,
   'daytona 24 races': true,
-  'edencharacter': true,
+  edencharacter: true,
   'moldova national football team results': true,
-  'samurai': true,
-  'protein': true,
+  samurai: true,
+  protein: true,
   'sheet authority': true,
   'order-of-approx': true,
   'bacterial labs': true,
   'medical resources': true,
-  'ordination': true,
+  ordination: true,
   'hockey team coach': true,
   'hockey team gm': true,
   'hockey team player': true,
   'hockey team start': true,
-  'mlbbioret': true,
+  mlbbioret: true
 };
 //
 const isInfobox = function(name) {
@@ -64,7 +64,7 @@ const isInfobox = function(name) {
 };
 
 //turns template data into good inforbox data
-const fmtInfobox = function( obj = {} ) {
+const fmtInfobox = function(obj = {}) {
   let m = obj.template.match(i18nReg);
   let type = obj.template;
   if (m && m[0]) {

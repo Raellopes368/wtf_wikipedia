@@ -14,7 +14,7 @@ const monthList = [
   'sep',
   'oct',
   'nov',
-  'dec',
+  'dec'
 ];
 
 const toNumber = function(str) {
@@ -35,10 +35,10 @@ let templates = {
     //collect all month-based data
     let byMonth = {};
     let properties = Object.keys(obj).filter(k => hasMonth.test(k));
-    properties = properties.map((k) => k.replace(hasMonth, ''));
-    properties.forEach((prop) => {
+    properties = properties.map(k => k.replace(hasMonth, ''));
+    properties.forEach(prop => {
       byMonth[prop] = [];
-      monthList.forEach((m) => {
+      monthList.forEach(m => {
         let key = `${m} ${prop}`;
         if (obj.hasOwnProperty(key)) {
           let num = toNumber(obj[key]);
@@ -52,7 +52,7 @@ let templates = {
 
     //collect year-based data
     let byYear = {};
-    Object.keys(obj).forEach((k) => {
+    Object.keys(obj).forEach(k => {
       if (isYear.test(k)) {
         let prop = k.replace(isYear, '');
         byYear[prop] = obj[k];
@@ -69,11 +69,11 @@ let templates = {
   //https://en.wikipedia.org/wiki/Template:Weather_box/concise_C
   'weather box/concise c': (tmpl, r) => {
     let obj = parse(tmpl);
-    obj.list = obj.list.map((s) => toNumber(s));
+    obj.list = obj.list.map(s => toNumber(s));
     obj.byMonth = {
-      'high c' : obj.list.slice(0, 12),
-      'low c' : obj.list.slice(12, 24),
-      'rain mm' : obj.list.slice(24, 36)
+      'high c': obj.list.slice(0, 12),
+      'low c': obj.list.slice(12, 24),
+      'rain mm': obj.list.slice(24, 36)
     };
     delete obj.list;
     obj.template = 'weather box';
@@ -82,18 +82,17 @@ let templates = {
   },
   'weather box/concise f': (tmpl, r) => {
     let obj = parse(tmpl);
-    obj.list = obj.list.map((s) => toNumber(s));
+    obj.list = obj.list.map(s => toNumber(s));
     obj.byMonth = {
-      'high f' : obj.list.slice(0, 12),
-      'low f' : obj.list.slice(12, 24),
-      'rain inch' : obj.list.slice(24, 36)
+      'high f': obj.list.slice(0, 12),
+      'low f': obj.list.slice(12, 24),
+      'rain inch': obj.list.slice(24, 36)
     };
     delete obj.list;
     obj.template = 'weather box';
     r.templates.push(obj);
     return '';
   },
-
 
   //https://en.wikipedia.org/wiki/Template:Climate_chart
   'climate chart': (tmpl, r) => {
@@ -102,7 +101,7 @@ let templates = {
     let source = list[38];
     list = list.slice(1);
     //amazingly, they use '−' symbol here instead of negatives...
-    list = list.map((str) => {
+    list = list.map(str => {
       if (str && str[0] === '−') {
         str = str.replace(/−/, '-');
       }
@@ -110,7 +109,7 @@ let templates = {
     });
     let months = [];
     //groups of three, for 12 months
-    for(let i = 0; i < 36; i += 3) {
+    for (let i = 0; i < 36; i += 3) {
       months.push({
         low: toNumber(list[i]),
         high: toNumber(list[i + 1]),
@@ -127,7 +126,7 @@ let templates = {
     };
     r.templates.push(obj);
     return '';
-  },
+  }
 };
 
 module.exports = templates;

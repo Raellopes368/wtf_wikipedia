@@ -3,7 +3,7 @@ const parse = require('../_parsers/parse');
 
 const tmpls = {
   //a strange, newline-based list - https://en.wikipedia.org/wiki/Template:Plainlist
-  plainlist: (tmpl) => {
+  plainlist: tmpl => {
     tmpl = strip(tmpl);
     //remove the title
     let arr = tmpl.split('|');
@@ -25,7 +25,7 @@ const tmpls = {
     }
     if (!obj.list) {
       obj.list = [];
-      for(let i = 1; i < 10; i += 1) {
+      for (let i = 1; i < 10; i += 1) {
         if (obj[i]) {
           obj.list.push(obj[i]);
           delete obj[i];
@@ -44,40 +44,40 @@ const tmpls = {
     let lines = obj.list.map((str, i) => `${i + 1}. ${str}`);
     return lines.join('\n\n');
   },
-  hlist: (tmpl) => {
+  hlist: tmpl => {
     let obj = parse(tmpl);
     obj.list = obj.list || [];
     return obj.list.join(' · ');
   },
-  'pagelist': (tmpl) => {
+  pagelist: tmpl => {
     let arr = parse(tmpl).list || [];
     return arr.join(', ');
   },
   //actually rendering these links removes the text.
   //https://en.wikipedia.org/wiki/Template:Catlist
-  'catlist': (tmpl) => {
+  catlist: tmpl => {
     let arr = parse(tmpl).list || [];
     return arr.join(', ');
   },
   //https://en.wikipedia.org/wiki/Template:Br_separated_entries
-  'br separated entries': (tmpl) => {
+  'br separated entries': tmpl => {
     let arr = parse(tmpl).list || [];
     return arr.join('\n\n');
   },
-  'comma separated entries': (tmpl) => {
+  'comma separated entries': tmpl => {
     let arr = parse(tmpl).list || [];
     return arr.join(', ');
   },
   //https://en.wikipedia.org/wiki/Template:Bare_anchored_list
-  'anchored list': (tmpl) => {
+  'anchored list': tmpl => {
     let arr = parse(tmpl).list || [];
     arr = arr.map((str, i) => `${i + 1}. ${str}`);
     return arr.join('\n\n');
   },
-  'bulleted list': (tmpl) => {
+  'bulleted list': tmpl => {
     let arr = parse(tmpl).list || [];
-    arr = arr.filter((f) => f);
-    arr = arr.map((str) => '• ' + str);
+    arr = arr.filter(f => f);
+    arr = arr.map(str => '• ' + str);
     return arr.join('\n\n');
   },
   //https://en.wikipedia.org/wiki/Template:Columns-list
@@ -85,16 +85,16 @@ const tmpls = {
     let arr = parse(tmpl).list || [];
     let str = arr[0] || '';
     let list = str.split(/\n/);
-    list = list.filter((f) => f);
-    list = list.map((s) => s.replace(/\*/, ''));
+    list = list.filter(f => f);
+    list = list.map(s => s.replace(/\*/, ''));
     r.templates.push({
       template: 'columns-list',
       list: list
     });
-    list = list.map((s) => '• ' + s);
+    list = list.map(s => '• ' + s);
     return list.join('\n\n');
-  },
-// 'pagelist':(tmpl)=>{},
+  }
+  // 'pagelist':(tmpl)=>{},
 };
 //aliases
 tmpls.flatlist = tmpls.plainlist;

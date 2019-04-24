@@ -14,7 +14,7 @@ const ymd = function(arr) {
   let obj = {};
   let units = ['year', 'month', 'date', 'hour', 'minute', 'second'];
   //parse each unit in sequence..
-  for(let i = 0; i < units.length; i += 1) {
+  for (let i = 0; i < units.length; i += 1) {
     //skip it
     if (!arr[i] && arr[1] !== 0) {
       continue;
@@ -22,10 +22,12 @@ const ymd = function(arr) {
     let num = parseInt(arr[i], 10);
     if (isNaN(num) === false) {
       obj[units[i]] = num; //we good.
-    } else if (units[i] === 'month' && monthName.hasOwnProperty(arr[i])) { //try for month-name, like 'january
+    } else if (units[i] === 'month' && monthName.hasOwnProperty(arr[i])) {
+      //try for month-name, like 'january
       let month = monthName[arr[i]];
       obj[units[i]] = month;
-    } else { //we dead. so skip this unit
+    } else {
+      //we dead. so skip this unit
       delete obj[units[i]];
     }
   }
@@ -65,7 +67,7 @@ const toText = function(date) {
           time = time + ':' + pad(date.second);
         }
         str = time + ', ' + str;
-      //add timezone, if there, at the end in brackets
+        //add timezone, if there, at the end in brackets
       }
       if (date.tz) {
         str += ` (${date.tz})`;
@@ -77,7 +79,7 @@ const toText = function(date) {
 
 module.exports = {
   toText: toText,
-  ymd: ymd,
+  ymd: ymd
 };
 
 // console.log(toText(ymd([2018, 3, 28])));
